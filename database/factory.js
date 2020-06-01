@@ -9,9 +9,20 @@
 |
 */
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-// const Factory = use('Factory')
-// Factory.blueprint('App/Models/User', (faker) => {
-//   return {
-//     username: faker.username()
-//   }
-// })
+const Factory = use('Factory');
+Factory.blueprint('App/Models/User', (faker, i, data = {}) => {
+  return {
+    nome: faker.name(),
+    email: faker.email(),
+    cpf: faker.cpf(),
+    celular: faker.phone({ country: 'br', mobile: true }),
+    telefone: faker.phone({ country: 'br' }),
+    cep: faker.zip({ plusfour: true }),
+    logradouro: 'Rua França',
+    numero: '321',
+    cidade: 'Fortaleza',
+    estado: 'CE',
+    password: faker.string(),
+    ...data,
+  };
+});
