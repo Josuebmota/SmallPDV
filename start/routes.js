@@ -16,3 +16,5 @@ const Route = use('Route');
 
 Route.post('/create', 'UserController.create');
 Route.post('/session', 'SessionController.login');
+Route.post('/forgot', 'ForgotPasswordController.forgot');
+Route.post('/reset', 'ResetPasswordController.reset');

@@ -15,6 +15,7 @@ class UserSchema extends Schema {
       table.string('numero').notNullable();
       table.string('cidade').notNullable();
       table.string('estado').notNullable();
+      table.string('cargo').notNullable();
       table.string('password').notNullable();
       table.timestamps();
     });

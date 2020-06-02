@@ -1,13 +1,14 @@
-const { test, trait } = use('Test/Suite')('Post');
+const { test, trait } = use('Test/Suite')('Session');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
 
 trait('Test/ApiClient');
+trait('DatabaseTransactions');
 
-test('Session User', async ({ assert, client }) => {
+test('Login Usuario', async ({ assert, client }) => {
   const sessionPayload = {
-    email: 'josue@gmail.com',
+    email: 'josuebatistam1@gmail.com',
     password: '12345',
   };
   await Factory.model('App/Models/User').create(sessionPayload);

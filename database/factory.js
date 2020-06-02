@@ -22,7 +22,16 @@ Factory.blueprint('App/Models/User', (faker, i, data = {}) => {
     numero: '321',
     cidade: 'Fortaleza',
     estado: 'CE',
+    cargo: 'Administrador',
     password: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
+  return {
+    type: data.type || 'refreshtoken',
+    token: faker.string({ length: 20 }),
     ...data,
   };
 });
