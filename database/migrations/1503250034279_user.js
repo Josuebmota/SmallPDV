@@ -13,6 +13,7 @@ class UserSchema extends Schema {
       table.string('cep').notNullable();
       table.string('logradouro').notNullable();
       table.string('numero').notNullable();
+      table.string('bairro').notNullable();
       table.string('cidade').notNullable();
       table.string('estado').notNullable();
       table.string('cargo').notNullable();

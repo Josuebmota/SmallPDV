@@ -20,6 +20,7 @@ Factory.blueprint('App/Models/User', (faker, i, data = {}) => {
     cep: faker.zip({ plusfour: true }),
     logradouro: 'Rua França',
     numero: '321',
+    bairro: 'Maraponga',
     cidade: 'Fortaleza',
     estado: 'CE',
     cargo: 'Administrador',
