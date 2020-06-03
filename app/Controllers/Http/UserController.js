@@ -3,7 +3,7 @@ const User = use('App/Models/User');
 
 class UserController {
   async create({ request, response }) {
-    const user = await User.create(request.except(['confirmapassword']));
+    const user = await User.create(request.except(['password_confirmation']));
     return response.status(201).json(user);
   }
 }
