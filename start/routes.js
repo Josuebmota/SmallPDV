@@ -14,7 +14,14 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.post('/create', 'UserController.create').validator('User');
+Route.post('/store', 'AdmController.store').validator('User');
 Route.post('/session', 'SessionController.login').validator('Session');
 Route.post('/forgot', 'ForgotPasswordController.forgot').validator('Forgot');
 Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
+
+Route.group(() => {
+  Route.resource('clientes', 'ClientesController').apiOnly();
+  Route.resource('empregados', 'EmpregadosController').apiOnly();
+  Route.resource('enderecos', 'EnderecoController').apiOnly();
+  Route.resource('telefones', 'TelefoneController').apiOnly();
+}).middleware('auth');
