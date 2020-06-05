@@ -38,11 +38,11 @@ class Empregados extends Model {
   }
 
   enderecos() {
-    return this.hasMany('App/Models/Endereco');
+    return this.belongsTo('App/Models/Endereco');
   }
 
   telefones() {
-    return this.hasMany('App/Models/Telefone');
+    return this.belongsTo('App/Models/Telefone');
   }
 }
 

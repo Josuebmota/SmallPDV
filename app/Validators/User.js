@@ -20,7 +20,6 @@ class User {
       ],
       tipo: 'required',
       cep: [rule('regex', /^\d{5}[-]\d{3}$/)],
-      password: 'required|confirmed',
     };
   }
 
@@ -38,8 +37,6 @@ class User {
       'telefone.unique': 'Telefone já existente',
       'telefone.regex': 'Formato telefone inválido (xx)xxxx-xxxx',
       'tipo.required': 'Campo tipo é obrigátorio',
-      'password.required': 'Campo é obrigátorio',
-      'password.confirmed': 'Password precisa ser confirmado',
     };
   }
 

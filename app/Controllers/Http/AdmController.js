@@ -1,5 +1,5 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Empregados = use('App/Models/Empregados');
+const Administrador = use('App/Models/User');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Endereco = use('App/Models/Endereco');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
@@ -7,7 +7,7 @@ const Telefone = use('App/Models/Telefone');
 
 class AdmController {
   async store({ request, response }) {
-    const user = await Empregados.create(
+    const user = await Administrador.create(
       request.only(['nome', 'email', 'cpf', 'tipo', 'password'])
     );
     const endereco = await Endereco.create(

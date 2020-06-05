@@ -9,14 +9,7 @@ class TelefoneSchema extends Schema {
         .integer('user_id')
         .unsigned()
         .references('id')
-        .inTable('empregados')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('clientes')
+        .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string('celular').unique();

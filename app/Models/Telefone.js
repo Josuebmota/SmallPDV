@@ -2,12 +2,8 @@
 const Model = use('Model');
 
 class Telefone extends Model {
-  empregado() {
-    return this.belongsTo('App/Models/User');
-  }
-
-  cliente() {
-    return this.belongsTo('App/Models/User');
+  user() {
+    return this.belongsTo('App/Models/Cliente');
   }
 }
 

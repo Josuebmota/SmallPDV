@@ -9,14 +9,7 @@ class EnderecoSchema extends Schema {
         .integer('user_id')
         .unsigned()
         .references('id')
-        .inTable('empregados')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('empregados')
+        .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string('cep');
