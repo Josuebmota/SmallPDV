@@ -1,5 +1,5 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const User = use('App/Models/User');
+const Clientes = use('App/Models/Clientes');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Endereco = use('App/Models/Endereco');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
@@ -7,33 +7,44 @@ const Telefone = use('App/Models/Telefone');
 
 class ClientesController {
   async store({ request, response }) {
-    const cliente = await User.create(request.only(['nome', 'email', 'cpf']), {
-      tipo: 'cliente',
-    });
-    const endereco = await Endereco.create(
-      request.only([
-        'cep',
-        'logradouro',
-        'numero',
-        'bairro',
-        'cidade',
-        'estado',
-      ])
-    );
-    const telefone = await Telefone.create(
-      request.only(['celular', 'telefone'])
+    const cliente = await Clientes.create(
+      request.only(['nome', 'email', 'cpf', 'saldo'])
     );
 
-    await cliente.enderecos().save(endereco);
-    await cliente.telefones().save(telefone);
+    const dataEndereco = request.only([
+      'cep',
+      'logradouro',
+      'numero',
+      'bairro',
+      'cidade',
+      'estado',
+    ]);
+
+    const dataTelefone = request.only(['celular', 'telefone']);
+
+    if (Object.entries(dataEndereco).length !== 0) {
+      await Endereco.create({
+        cliente_id: cliente.id,
+        ...dataEndereco,
+      });
+    }
+    if (Object.entries(dataTelefone).length !== 0) {
+      await Telefone.create({
+        cliente_id: cliente.id,
+        ...dataTelefone,
+      });
+    }
 
     return response
       .status(201)
-      .json({ newUser: { cliente, endereco, telefone } });
+      .json({ newClientes: { cliente, dataEndereco, dataTelefone } });
   }
 
   async index() {
-    const cliente = await User.findByOrFail('tipo', 'cliente');
+    const cliente = await Clientes.query()
+      .with('telefones')
+      .with('enderecos')
+      .fetch();
 
     if (!cliente) {
       return 'Não há clientes cadastrados';
@@ -44,22 +55,18 @@ class ClientesController {
     return cliente;
   }
 
-  async show({ params, response }) {
-    const cliente = await User.findOrFail(params.id);
-
-    if (cliente.tipo !== 'cliente') {
-      return response.status(400).json('Esse user não é um cliente');
-    }
+  async show({ params }) {
+    const cliente = await Clientes.query()
+      .where({ id: params.id })
+      .with('telefones')
+      .with('enderecos')
+      .fetch();
 
     return cliente;
   }
 
   async update({ params, request, response }) {
-    const cliente = await User.findOrFail(params.id);
-
-    if (cliente.tipo !== 'cliente') {
-      return response.status(400).json('Esse user não é um cliente');
-    }
+    const cliente = await Clientes.findOrFail(params.id);
 
     cliente.merge(request.all());
 
@@ -69,17 +76,11 @@ class ClientesController {
   }
 
   async destroy({ params, response, auth }) {
-    const empregadoBoss = await User.findOrFail('user_id', auth.user_id);
-
-    if (empregadoBoss.tipo !== 'ADM') {
-      return response.status(401).json('Você não tem autorização');
+    if (auth.user.tipo !== 'ADM') {
+      return response.status(401).json('Você não tem autorização para excluir');
     }
 
-    const cliente = await User.findOrFail(params.id);
-
-    if (cliente.tipo !== 'cliente') {
-      return response.status(400).json('Esse user não é um cliente');
-    }
+    const cliente = await Clientes.findOrFail(params.id);
 
     await cliente.delete();
 

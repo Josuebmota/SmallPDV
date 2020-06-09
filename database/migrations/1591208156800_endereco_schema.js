@@ -6,10 +6,10 @@ class EnderecoSchema extends Schema {
     this.create('enderecos', (table) => {
       table.increments();
       table
-        .integer('user_id')
+        .integer('cliente_id')
         .unsigned()
         .references('id')
-        .inTable('users')
+        .inTable('clientes')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string('cep');

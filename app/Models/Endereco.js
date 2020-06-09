@@ -2,7 +2,7 @@
 const Model = use('Model');
 
 class Endereco extends Model {
-  user() {
+  clientes() {
     return this.belongsTo('App/Models/Cliente');
   }
 }

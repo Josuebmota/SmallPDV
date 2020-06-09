@@ -13,6 +13,10 @@ class Reset {
       'password.confirmed': 'Password precisa ser confirmado',
     };
   }
+
+  async fails(errorMessages) {
+    return this.ctx.response.json({ error: errorMessages[0].message });
+  }
 }
 
 module.exports = Reset;

@@ -1,11 +1,9 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Endereco = use('App/Models/Endereco');
+const Telefone = use('App/Models/Telefone');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Clientes = use('App/Models/Clientes');
 
-const Database = use('Database');
-
-class EnderecoController {
+class TelefoneController {
   async store({ request, response, params }) {
     const clienteExists = await Clientes.findByOrFail('id', params.id);
 
@@ -15,36 +13,16 @@ class EnderecoController {
         .json({ erro: 'Não foi encontrado esse cliente' });
     }
 
-    const { cep, logradouro, numero } = request.only([
-      'cep',
-      'logradouro',
-      'numero',
-    ]);
-
-    const enderecoExists = await Database.select('cep', 'logradouro', 'numero')
-      .from('enderecos')
-      .where({
-        cliente_id: params.id,
-        cep,
-        logradouro,
-        numero,
-      });
-
-    if (enderecoExists) {
-      return response
-        .status(400)
-        .json({ erro: 'Você já cadastrou esse endereço' });
-    }
-    const newEndereco = await Endereco.create({
+    const newTelefone = await Telefone.create({
       cliente_id: params.id,
       ...request.all(),
     });
 
-    return response.status(201).json(newEndereco);
+    return response.status(201).json(newTelefone);
   }
 
-  async index({ params, response, auth }) {
-    const clienteExists = await Clientes.findByOrFail('id', auth.user.id);
+  async index({ params, response }) {
+    const clienteExists = await Clientes.findByOrFail('id', params.id);
 
     if (!clienteExists) {
       return response
@@ -52,15 +30,15 @@ class EnderecoController {
         .json({ erro: 'Não foi encontrado esse cliente' });
     }
 
-    const enderecos = await Endereco.query()
+    const telefone = await Telefone.query()
       .where('cliente_id', params.id)
       .fetch();
 
-    if (!enderecos) {
+    if (!telefone) {
       return response.status(404).json('Não há endereços');
     }
 
-    return enderecos;
+    return telefone;
   }
 
   async show({ params, response }) {
@@ -72,19 +50,19 @@ class EnderecoController {
         .json({ erro: 'Não foi encontrado esse cliente' });
     }
 
-    const enderecos = await Endereco.findByOrFail('id', params.endereco_id);
+    const telefone = await Telefone.findByOrFail('id', params.telefone_id);
 
-    if (!enderecos) {
+    if (!telefone) {
       return response.status(404).json({ erro: 'Esse endereço não existe' });
     }
 
-    if (enderecos.cliente_id !== clienteExists.id) {
+    if (telefone.cliente_id !== clienteExists.id) {
       return response
         .status(404)
         .json({ erro: 'Esse endereço não pertence a esse user' });
     }
 
-    return enderecos;
+    return telefone;
   }
 
   async update({ params, request, response }) {
@@ -96,23 +74,23 @@ class EnderecoController {
         .json({ erro: 'Não foi encontrado esse cliente' });
     }
 
-    const enderecos = await Endereco.findByOrFail('id', params.endereco_id);
+    const telefone = await Telefone.findByOrFail('id', params.telefone_id);
 
-    if (!enderecos) {
+    if (!telefone) {
       return response.status(404).json({ erro: 'Esse endereço não existe' });
     }
 
-    if (enderecos.cliente_id !== clienteExists.id) {
+    if (telefone.cliente_id !== clienteExists.id) {
       return response
         .status(404)
         .json({ erro: 'Esse endereço não pertence a esse user' });
     }
 
-    enderecos.merge(request.all());
+    telefone.merge(request.all());
 
-    await enderecos.save();
+    await telefone.save();
 
-    return response.status(201).json(enderecos);
+    return response.status(201).json(telefone);
   }
 
   async destroy({ params, response, auth }) {
@@ -130,22 +108,22 @@ class EnderecoController {
         .json('Você não tem autorização para alterar esse endereço');
     }
 
-    const enderecos = await Endereco.findByOrFail('id', params.endereco_id);
+    const telefone = await Telefone.findByOrFail('id', params.telefone_id);
 
-    if (!enderecos) {
+    if (!telefone) {
       return response.status(404).json({ erro: 'Esse endereço não existe' });
     }
 
-    if (enderecos.cliente_id !== clienteExists.id) {
+    if (telefone.cliente_id !== clienteExists.id) {
       return response
         .status(404)
         .json({ erro: 'Esse endereço não pertence a esse user' });
     }
 
-    await enderecos.delete();
+    await telefone.delete();
 
     return 'Endereço deletado';
   }
 }
 
-module.exports = EnderecoController;
+module.exports = TelefoneController;

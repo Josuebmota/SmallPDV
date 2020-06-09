@@ -13,6 +13,10 @@ class Session {
       'password.required': 'Campo é obrigátorio',
     };
   }
+
+  async fails(errorMessages) {
+    return this.ctx.response.json({ error: errorMessages[0].message });
+  }
 }
 
 module.exports = Session;

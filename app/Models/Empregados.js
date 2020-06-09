@@ -27,22 +27,11 @@ class Empregados extends Model {
    *
    * @method tokens
    *
-   * @method enderecos
-   *
-   * @method telefones
    *
    * @return {Object}
    */
   tokens() {
     return this.hasMany('App/Models/Token');
-  }
-
-  enderecos() {
-    return this.belongsTo('App/Models/Endereco');
-  }
-
-  telefones() {
-    return this.belongsTo('App/Models/Telefone');
   }
 }
 
