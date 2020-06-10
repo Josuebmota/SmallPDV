@@ -4,7 +4,7 @@ const Model = use('Model');
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash');
 
-class User extends Model {
+class Empregados extends Model {
   static boot() {
     super.boot();
 
@@ -27,6 +27,7 @@ class User extends Model {
    *
    * @method tokens
    *
+   *
    * @return {Object}
    */
   tokens() {
@@ -34,4 +35,4 @@ class User extends Model {
   }
 }
 
-module.exports = User;
+module.exports = Empregados;

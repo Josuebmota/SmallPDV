@@ -26,3 +26,9 @@ Run the following command to run startup migrations.
 ```js
 adonis migration:run
 ```
+
+### Emails
+
+- Mailgun
+- Amazon SES
+- Sparkpost
