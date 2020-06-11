@@ -1,8 +1,8 @@
 {
-  "name": "sistema-de-vendas",
+  "name": "apicastradousuarios",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "Api para cadastrar Clientes e Funcionários",
   "main": "index.js",
   "scripts": {
     "start": "node  server.js",
@@ -28,7 +28,8 @@
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
     "date-fns": "^2.14.0",
-    "pg": "^8.2.1"
+    "pg": "^8.2.1",
+    "url-parse": "^1.4.7"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
