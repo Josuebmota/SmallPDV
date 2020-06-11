@@ -1,34 +1,38 @@
-# Adonis API application
+# Adonis ApiCadastroUsuario
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+Essa aplicação utiliza as seguintes ferramentas, provenientes do próprio adonis
 
 1. Bodyparser
 2. Authentication
 3. CORS
 4. Lucid ORM
 5. Migrations and seeds
+6. Tests
 
-## Setup
+>Link Homologação: http://apicadastrouser.herokuapp.com
 
-Use the adonis command to install the blueprint
+## Execução
+
+Clone o repositório e execute o seguinte comando, para baixar as dependência:
 
 ```bash
-adonis new yardstick --api-only
+yarn
 ```
+Modifique as configurações de database, relacionado ao postgres e descomente as variáveis de ambiente, para a criação de um base local
 
-or manually clone the repo and then run `npm install`.
+> Migrations
 
-
-### Migrations
-
-Run the following command to run startup migrations.
+Execute  as migrations
 
 ```js
 adonis migration:run
 ```
 
-### Emails
+E em seguida o programa
 
-- Mailgun
-- Amazon SES
-- Sparkpost
+```js
+adonis serve --test
+```
+
+### Observações
+As rotas de ForgotPassword e ResetPassword não foram implementadas ainda

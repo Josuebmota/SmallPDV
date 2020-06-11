@@ -6,7 +6,7 @@ class TokensSchema extends Schema {
     this.create('tokens', (table) => {
       table.increments();
       table
-        .integer('empregados_id')
+        .integer('empregado_id')
         .unsigned()
         .references('id')
         .inTable('empregados');
