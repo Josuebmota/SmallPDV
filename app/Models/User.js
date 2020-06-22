@@ -4,7 +4,7 @@ const Model = use('Model');
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash');
 
-class Empregados extends Model {
+class User extends Model {
   static boot() {
     super.boot();
 
@@ -33,6 +33,22 @@ class Empregados extends Model {
   tokens() {
     return this.hasMany('App/Models/Token');
   }
+
+  empregado() {
+    return this.belongsTo('App/Models/Empregado');
+  }
+
+  cliente() {
+    return this.belongsTo('App/Models/Cliente');
+  }
+
+  enderecos() {
+    return this.hasMany('App/Models/Endereco');
+  }
+
+  telefones() {
+    return this.hasMany('App/Models/Telefone');
+  }
 }
 
-module.exports = Empregados;
+module.exports = User;

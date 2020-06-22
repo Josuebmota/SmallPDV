@@ -11,7 +11,7 @@ test('Login Usuario', async ({ assert, client }) => {
     email: 'josuebatistam1@gmail.com',
     password: '12345',
   };
-  await Factory.model('App/Models/Empregados').create(sessionPayload);
+  await Factory.model('App/Models/Employee').create(sessionPayload);
 
   const response = await client.post('/session').send(sessionPayload).end();
 

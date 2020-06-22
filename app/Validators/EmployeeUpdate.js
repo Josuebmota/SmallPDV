@@ -1,6 +1,6 @@
 const { rule } = use('Validator');
 
-class EmpregadoUpdate {
+class EmployeeUpdate {
   get rules() {
     return {
       email: 'email|unique:empregados',
@@ -41,4 +41,4 @@ class EmpregadoUpdate {
   }
 }
 
-module.exports = EmpregadoUpdate;
+module.exports = EmployeeUpdate;

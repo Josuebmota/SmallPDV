@@ -1,22 +1,23 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Empregados = use('App/Models/Empregados');
+const User = use('App/Models/User');
 
 class PerfilEmpregadoController {
   async index({ auth }) {
-    const empregado = await Empregados.query()
+    await auth.check();
+    const empregado = await User.query()
       .select(
         'id',
-        'nome',
+        'name',
         'cpf',
-        'celular',
-        'telefone',
+        'cellphone',
+        'telephone',
         'cep',
-        'logradouro',
-        'numero',
-        'bairro',
-        'cidade',
-        'estado',
-        'tipo'
+        'street',
+        'number',
+        'neighborhood',
+        'city',
+        'state',
+        'type'
       )
       .where({ id: auth.user.id })
       .fetch();

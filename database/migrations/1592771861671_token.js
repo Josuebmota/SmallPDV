@@ -6,10 +6,10 @@ class TokensSchema extends Schema {
     this.create('tokens', (table) => {
       table.increments();
       table
-        .integer('empregado_id')
+        .integer('employees_id')
         .unsigned()
         .references('id')
-        .inTable('empregados');
+        .inTable('employees');
       table.string('token', 255).notNullable().unique().index();
       table.string('type', 80).notNullable();
       table.boolean('is_revoked').defaultTo(false);

@@ -1,6 +1,6 @@
 const { rule } = use('Validator');
 
-class Endereco {
+class Address {
   get rules() {
     return {
       cep: [rule('required'), rule('regex', /^\d{5}[-]\d{3}$/)],
@@ -29,4 +29,4 @@ class Endereco {
   }
 }
 
-module.exports = Endereco;
+module.exports = Address;
