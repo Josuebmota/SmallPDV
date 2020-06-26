@@ -4,23 +4,23 @@ class Address {
   get rules() {
     return {
       cep: [rule('required'), rule('regex', /^\d{5}[-]\d{3}$/)],
-      logradouro: 'required',
-      numero: 'required',
-      bairro: 'required',
-      cidade: 'required',
-      estado: 'required|max:2',
+      street: 'required',
+      number: 'required',
+      neighborhood: 'required',
+      city: 'required',
+      state: 'required|max:2',
     };
   }
 
   get messages() {
     return {
-      'cep.required': 'Campo cep é obrigatório',
-      'cep.regex': 'Formato cep inválido xxxx-xxx',
-      'numero.required': 'Campo numero é obrigatório',
-      'bairro.required': 'Campo bairro é obrigatório',
-      'cidade.required': 'Campo cidade é obrigatório',
-      'estado.required': 'Campo estado é obrigatório',
-      'estado.max': 'Campo estado deve ter no maximo 2',
+      'cep.required': 'Cep is required',
+      'cep.regex': 'Invalid cep, xxxx-xxx',
+      'number.required': 'Cep is required',
+      'neighborhood.required': 'Cep is required',
+      'city.required': 'Cep is required',
+      'state.required': 'Cep is required',
+      'state.max': 'State must have a maximum of 2',
     };
   }
 

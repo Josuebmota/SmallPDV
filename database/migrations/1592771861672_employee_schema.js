@@ -11,7 +11,6 @@ class EmployeeSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      table.string('password').notNullable();
       table.string('type').notNullable();
       table.timestamps();
     });

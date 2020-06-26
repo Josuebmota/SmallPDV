@@ -3,6 +3,8 @@ const User = use('App/Models/User');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Cliente = use('App/Models/Client');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Employee = use('App/Models/Employee');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Endereco = use('App/Models/Address');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Telephone = use('App/Models/Telephone');
@@ -12,6 +14,8 @@ const Database = use('Database');
 class ClientController {
   async store({ auth, request, response }) {
     await auth.check();
+
+    const trx = await Database.beginTransaction();
 
     const dataUser = request.only(['name', 'email', 'cpf']);
 
@@ -28,21 +32,30 @@ class ClientController {
 
     const dataTelephone = request.only(['cellphone', 'telephone']);
 
-    const { id, nome, email } = await User.create(dataUser);
+    const { id, nome, email } = await User.create(dataUser, trx);
 
-    const { saldo } = await Cliente.create({ user_id: id, ...dataCliente });
+    const { saldo } = await Cliente.create(
+      { user_id: id, ...dataCliente },
+      trx
+    );
 
     if (Object.entries(dataEndereco).length !== 0) {
-      await Endereco.create({
-        user_id: id,
-        ...dataEndereco,
-      });
+      await Endereco.create(
+        {
+          user_id: id,
+          ...dataEndereco,
+        },
+        trx
+      );
     }
     if (Object.entries(dataTelephone).length !== 0) {
-      await Telephone.create({
-        user_id: id,
-        ...dataTelephone,
-      });
+      await Telephone.create(
+        {
+          user_id: id,
+          ...dataTelephone,
+        },
+        trx
+      );
     }
 
     return response.status(201).json({
@@ -50,7 +63,7 @@ class ClientController {
     });
   }
 
-  async index({ auth }) {
+  async index({ auth, response }) {
     await auth.check();
 
     const cliente = await User.query()
@@ -60,24 +73,25 @@ class ClientController {
       .fetch();
 
     if (!cliente) {
-      return 'There are no clients';
+      return response.status(404).json({ erro: 'There are no clients' });
     }
-
-    delete cliente.cpf;
 
     return cliente;
   }
 
-  async show({ auth, params }) {
+  async show({ auth, params, response }) {
     await auth.check();
 
     const cliente = await Database.table('users')
       .innerJoin('clients', 'users.id', 'clients.user_id')
-      .innerJoin('addresses', 'users.id', 'addresses.user_id')
-      .innerJoin('telephones', 'users.id', 'telephones.user_id')
-      .where({ id: params.id })
-      .fetch();
+      .with('addresses')
+      .with('telephones')
+      .where(' users.id', params.id)
+      .first();
 
+    if (!cliente) {
+      return response.status(404).json({ notfound: 'User is not found' });
+    }
     return cliente;
   }
 
@@ -92,8 +106,9 @@ class ClientController {
     // Config Clients
     const dataCliente = request.only(['saldo']);
     if (Object.entries(dataCliente).length !== 0) {
-      const empregado = await Cliente.findByOrFail('user_id', params.id);
-      empregado.merge(dataCliente);
+      const employee = await Cliente.findByOrFail('user_id', params.id);
+      employee.merge(dataCliente);
+      await employee.save();
     }
 
     return response.status(201).json({ update: 'Updated Client' });
@@ -101,8 +116,15 @@ class ClientController {
 
   async destroy({ params, response, auth }) {
     await auth.check();
+    const userExists = await User.findByOrFail('id', params.id);
 
-    if (auth.user.tipo !== 'ADM') {
+    if (!userExists) {
+      return response.status(404).json({ erro: 'User is not found' });
+    }
+
+    const admExists = await Employee.findByOrFail('user_id', auth.user.id);
+
+    if (admExists.type !== 'ADM') {
       return response.status(401).json('You are not authorized to delete');
     }
 
@@ -110,7 +132,7 @@ class ClientController {
 
     await cliente.delete();
 
-    return 'Deleted client';
+    return response.status(200).json({ delete: 'Deleted Client' });
   }
 }
 

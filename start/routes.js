@@ -25,20 +25,18 @@ Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
 Route.group(() => {
   // Empregados
   // Obs: Empregados já tem endereços e telefones em sua tabela
-  Route.post('empregados', 'EmployeeController.store').validator(
-    'EmployeePost'
-  );
-  Route.put('empregados/:id', 'EmployeeController.update').validator(
+  Route.post('employee', 'EmployeeController.store').validator('EmployeePost');
+  Route.put('employee/:id', 'EmployeeController.update').validator(
     'EmployeeUpdate'
   );
-  Route.resource('empregados', 'EmployeeController').only([
+  Route.resource('employee', 'EmployeeController').only([
     'index',
     'show',
     'destroy',
   ]);
 
   // Perfil Empregado
-  Route.get('perfil', 'ProfileEmployeeController.index');
+  Route.get('profile', 'ProfileEmployeeController.index');
 
   // Clientes Controller
   Route.post('client', 'ClientController.store').validator('Client');
@@ -50,21 +48,23 @@ Route.group(() => {
   ]);
 
   // Endereços Cliente
-  Route.post('address/:id', 'EnderecoController.store').validator('Address');
-  Route.put('address/:id/:endereco_id', 'EnderecoController.update').validator(
+  Route.post('address/:id', 'AddressController.store').validator('Address');
+  Route.put('address/:id/:address_id', 'AddressController.update').validator(
     'Endereco'
   );
-  Route.get('address/:id', 'EnderecoController.index');
-  Route.get('address/:id/:endereco_id', 'EnderecoController.show');
-  Route.delete('address/:id/:endereco_id', 'EnderecoController.destroy');
+  Route.get('address/:id', 'AddressController.index');
+  Route.get('address/:id/:address_id', 'AddressController.show');
+  Route.delete('address/:id/:address_id', 'AddressController.destroy');
 
   // Telefones/Celular Cliente
-  Route.post('telefones/:id', 'TelefoneController.store').validator('Telefone');
+  Route.post('telephone/:id', 'TelephoneController.store').validator(
+    'Telephone'
+  );
   Route.put(
-    'telefones/:id/:telefone_id',
-    'TelefoneController.update'
-  ).validator('Telefone');
-  Route.get('telefones/:id', 'TelefoneController.index');
-  Route.get('telefones/:id/:telefone_id', 'TelefoneController.show');
-  Route.delete('telefones/:id/:telefone_id', 'TelefoneController.destroy');
+    'telephone/:id/:telephone_id',
+    'TelephoneController.update'
+  ).validator('Telephone');
+  Route.get('telephone/:id', 'TelephoneController.index');
+  Route.get('telephone/:id/:telephone_id', 'TelephoneController.show');
+  Route.delete('telephone/:id/:telephone_id', 'TelephoneController.destroy');
 }).middleware('auth');

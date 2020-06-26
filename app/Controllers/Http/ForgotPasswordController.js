@@ -3,7 +3,7 @@ const { promisify } = require('util');
 
 const Mail = use('Mail');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Empregados = use('App/Models/Empregados');
+const User = use('App/Models/User');
 
 const Env = use('Env');
 
@@ -11,7 +11,7 @@ class ForgotPasswordController {
   async forgot({ request, response }) {
     const email = request.input('email');
 
-    const user = await Empregados.findBy('email', email);
+    const user = await User.findBy('email', email);
 
     const random = await promisify(randomBytes)(24);
     const token = random.toString('hex');

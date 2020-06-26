@@ -10,7 +10,7 @@
 */
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
-Factory.blueprint('App/Models/Empregados', (faker, i, data = {}) => {
+Factory.blueprint('App/Models/Employee', (faker, i, data = {}) => {
   return {
     nome: faker.name(),
     email: faker.email(),

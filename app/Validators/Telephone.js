@@ -3,12 +3,12 @@ const { rule } = use('Validator');
 class Telephone {
   get rules() {
     return {
-      celular: [
-        rule('unique', 'telefones'),
+      cellphone: [
+        rule('unique', 'telephones'),
         rule('regex', /^\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}$/),
       ],
-      telefone: [
-        rule('unique', 'telefones'),
+      telephone: [
+        rule('unique', 'telephones'),
         rule('regex', /^\([1-9]{2}\)[0-9]{4}-[0-9]{4}$/),
       ],
     };
@@ -16,10 +16,10 @@ class Telephone {
 
   get messages() {
     return {
-      'celular.unique': 'Celular já existente',
-      'celular.regex': 'Formato celular inválido (xx)9xxx-xxxx',
-      'telefone.unique': 'Telefone já existente',
-      'telefone.regex': 'Formato telefone inválido (xx)xxxx-xxxx',
+      'cellphone.unique': 'Existing cellphone',
+      'cellphone.regex': 'Invalid cellphone, (xx)9xxx-xxxx',
+      'telephone.unique': 'Existing telephones',
+      'telephone.regex': 'Invalid telephone, (xx)xxxx-xxxx',
     };
   }
 

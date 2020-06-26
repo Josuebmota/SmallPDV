@@ -7,11 +7,15 @@ const Address = use('App/Models/Address');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Telephone = use('App/Models/Telephone');
 
+const Database = use('Database');
+
 class AdmController {
   async store({ request, response }) {
-    const dataUser = request.only(['name', 'email', 'cpf']);
+    const trx = await Database.beginTransaction();
 
-    const dataEmployee = request.only(['type,password']);
+    const dataUser = request.only(['name', 'email', 'cpf', 'password']);
+
+    const dataEmployee = request.only(['type']);
 
     const dataAddress = request.only([
       'cep',
@@ -24,22 +28,33 @@ class AdmController {
 
     const dataTelephone = request.only(['cellphone', 'telephone']);
 
-    const { id, nome, email } = await User.create(dataUser);
+    const { id, nome, email } = await User.create(dataUser, trx);
 
-    const { type } = await Employee.create({ user_id: id, ...dataEmployee });
+    const { type } = await Employee.create(
+      { user_id: id, ...dataEmployee },
+      trx
+    );
 
     if (Object.entries(dataAddress).length !== 0) {
-      await Address.create({
-        user_id: id,
-        ...dataAddress,
-      });
+      await Address.create(
+        {
+          user_id: id,
+          ...dataAddress,
+        },
+        trx
+      );
     }
     if (Object.entries(dataTelephone).length !== 0) {
-      await Telephone.create({
-        user_id: id,
-        ...dataTelephone,
-      });
+      await Telephone.create(
+        {
+          user_id: id,
+          ...dataTelephone,
+        },
+        trx
+      );
     }
+
+    trx.commit();
 
     return response
       .status(201)

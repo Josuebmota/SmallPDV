@@ -8,6 +8,7 @@ class UserSchema extends Schema {
       table.string('name').notNullable();
       table.string('email').notNullable().unique();
       table.string('cpf').unique();
+      table.string('password');
       table.timestamps();
     });
   }

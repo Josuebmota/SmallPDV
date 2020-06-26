@@ -27,6 +27,13 @@ class User extends Model {
    *
    * @method tokens
    *
+   * @method employees
+   *
+   * @method clients
+   *
+   * @method addresses
+   *
+   * @method telephones
    *
    * @return {Object}
    */
@@ -34,20 +41,20 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
-  empregado() {
-    return this.belongsTo('App/Models/Empregado');
+  employees() {
+    return this.belongsTo('App/Models/Employee');
   }
 
-  cliente() {
-    return this.belongsTo('App/Models/Cliente');
+  clients() {
+    return this.belongsTo('App/Models/Client');
   }
 
-  enderecos() {
-    return this.hasMany('App/Models/Endereco');
+  addresses() {
+    return this.hasMany('App/Models/Address');
   }
 
-  telefones() {
-    return this.hasMany('App/Models/Telefone');
+  telephones() {
+    return this.hasMany('App/Models/Telephone');
   }
 }
 

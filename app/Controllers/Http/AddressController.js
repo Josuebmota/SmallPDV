@@ -15,20 +15,17 @@ class AddressController {
       return response.status(404).json({ erro: 'User is not found' });
     }
 
-    const { cep, logradouro, numero } = request.only([
-      'cep',
-      'street',
-      'number',
-    ]);
+    const { cep, street, number } = request.only(['cep', 'street', 'number']);
 
     const AddressExists = await Database.select('cep', 'street', 'number')
-      .from('Addresss')
+      .from('addresses')
       .where({
         user_id: params.id,
         cep,
-        logradouro,
-        numero,
-      });
+        street,
+        number,
+      })
+      .first();
 
     if (AddressExists) {
       return response
