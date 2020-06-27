@@ -30,7 +30,7 @@ class EmpregadoPost {
       'email.email': 'Forneça um e-mail valido',
       'email.unique': 'E-mail já existente',
       'cpf.required': 'CPF é obrigátorio',
-      'cpf.unique': 'Cpf já existente',
+      'cpf.unique': 'CPF já existente',
       'cpf.regex': 'Formato cpf inválido xxx.xxx.xxx-xx',
       'celular.unique': 'Celular já existente',
       'celular.regex': 'Formato celular inválido (xx)9xxx-xxxx',

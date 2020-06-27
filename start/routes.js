@@ -69,3 +69,15 @@ Route.group(() => {
   Route.get('telefones/:id/:telefone_id', 'TelefoneController.show');
   Route.delete('telefones/:id/:telefone_id', 'TelefoneController.destroy');
 }).middleware('auth');
+
+//products
+Route.group(() => {
+  Route.resource('products', 'ProductController').apiOnly().except(['store']);
+  Route.post('products', 'ProductController.store').validator('Product');
+  Route.get('products/code/:code', 'ProductController.showByCode');
+});
+
+//categories
+Route.group(() => {
+  Route.resource('categories', 'CategoryController').apiOnly();
+});
