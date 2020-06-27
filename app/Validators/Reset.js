@@ -8,9 +8,9 @@ class Reset {
 
   get messages() {
     return {
-      'token.required': 'Token é obrigátorio',
-      'password.required': 'Campo é obrigátorio',
-      'password.confirmed': 'Password precisa ser confirmado',
+      'token.required': 'Token is required',
+      'password.required': 'Campo is required',
+      'password.confirmed': 'Password needs to be confirmed',
     };
   }
 
