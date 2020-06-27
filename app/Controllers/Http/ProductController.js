@@ -1,12 +1,16 @@
 'use strict';
 
+const { Database } = require('sqlite3');
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Product = use('App/Models/Product');
-const ProductCategory = use ('App/Models/ProductCategory');
+const ProductCategory = use('App/Models/ProductCategory');
+const Category = use('App/Models/Category');
+const DB = use('Database');
 /**
  * Resourceful controller for interacting with products
  */
@@ -22,9 +26,25 @@ class ProductController {
    */
   async index({ request, response, view }) {
     const products = await Product.query().fetch();
-    console.log(products.toJSON());
 
-    response.status(200).json(products);
+    let data = [];
+    for (const product of products.rows) {
+      const relations = await ProductCategory.query()
+        .where('id_product', product.id)
+        .select(['id_category'])
+        .fetch();
+      let category = null;
+
+      if (relations.rows.length > 0) {
+        category = [];
+        for (const relation of relations.rows) {
+          category.push(await Category.findOrFail(relation.id_category));
+        }
+      }
+      const newProduct = { ...product.$attributes, category: category };
+      data.push(newProduct);
+    }
+    response.status(200).send(data);
   }
 
   /**
@@ -35,7 +55,7 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request }) {
+  async store({ request, response }) {
     const data = request.only([
       'name',
       'bar_code',
@@ -49,20 +69,32 @@ class ProductController {
       'fraction_sell',
       'stock_control',
     ]);
-    const product = await Product.create(data);
+    const trx = await DB.beginTransaction();
 
-    const categories = request.only('categories');
-    if(categories){
-      categories['categories'].map(async (id)=>{
-        await ProductCategory.create(
-          {
-            id_category:id,
-            id_product:product.id
-          });
-      });
+    try {
+      const id = await Product.getMax('id');
+      let product = await Product.create({ ...data, id: id + 1 },trx);
+      const categories = request.only('categories');
+      var category = null;
+
+      if (categories) {
+        category = [];
+        for (const id of categories['categories']) {
+          await ProductCategory.create({
+            id_category: id,
+            id_product: product.id,
+          },trx);
+          const categoryData = await Category.findOrFail(id);
+          category.push(categoryData.$attributes);
+        }
+      }
+      await trx.commit();
+      response.status(201).send({ ...product.$attributes, category: category });
+    } catch (err) {
+      console.log();
+      response.status(500).send({ error: err });
+      await trx.rollback();
     }
-
-    return product;
   }
 
   /**
@@ -76,12 +108,25 @@ class ProductController {
    */
   async show({ params }) {
     let product = await Product.findOrFail(params.id);
-    return product;
+
+    const relations = await ProductCategory.query()
+      .where('id_product', product.id)
+      .fetch();
+    let category = null;
+    if (relations.rows.length > 0) {
+      category = [];
+      for (const relation of relations.rows) {
+        category.push(await Category.findOrFail(relation.id_category));
+      }
+    }
+    const data = { ...product.$attributes, category: category };
+
+    return data;
   }
   /*
-  * Display a single product by bar_code or internal_code
-  * GET products/code/:code
-  */
+   * Display a single product by bar_code or internal_code
+   * GET products/code/:code
+   */
   async showByCode({ params, response }) {
     let product;
     product = await Product.findBy('bar_code', params.code);
@@ -119,7 +164,7 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params,response}) {
+  async destroy({ params, response }) {
     const product = await Product.findOrFail(params.id);
 
     // if (product.user_id !== auth.user.id) {
