@@ -1,6 +1,6 @@
 const { rule } = use('Validator');
 
-class EmployeeUpdate {
+class UserUpdate {
   get rules() {
     const userId = this.ctx.params.id;
 
@@ -8,6 +8,7 @@ class EmployeeUpdate {
       email: `unique:users,email,id,${userId}`,
       cpf: [
         `unique:users,cpf,id,${userId}`,
+        rule('unique', 'users'),
         rule('regex', /^\d{3}\.\d{3}\.\d{3}-\d{2}$/),
       ],
       password: 'confirmed',
@@ -29,4 +30,4 @@ class EmployeeUpdate {
   }
 }
 
-module.exports = EmployeeUpdate;
+module.exports = UserUpdate;

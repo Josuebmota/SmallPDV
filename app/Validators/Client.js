@@ -8,11 +8,11 @@ class Client {
         rule('unique', 'users'),
         rule('regex', /^\d{3}\.\d{3}\.\d{3}-\d{2}$/),
       ],
-      celular: [
+      cellphone: [
         rule('unique', 'telephones'),
         rule('regex', /^\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}$/),
       ],
-      telefone: [
+      telephone: [
         rule('unique', 'telephones'),
         rule('regex', /^\([1-9]{2}\)[0-9]{4}-[0-9]{4}$/),
       ],

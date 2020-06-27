@@ -81,7 +81,13 @@ class EmployeeController {
         .json({ unauthorized: 'You are not authorized to list employees' });
     }
 
-    const employees = await Database.select('users.id', 'name', 'email', 'type')
+    const employees = await Database.select(
+      'employees.id',
+      'user_id',
+      'name',
+      'email',
+      'type'
+    )
       .from('users')
       .innerJoin('employees', 'users.id', 'employees.user_id');
 
@@ -102,18 +108,39 @@ class EmployeeController {
         .json({ unauthorized: 'You are not authorized to list employees' });
     }
 
-    const employee = await User.query()
-      .innerJoin('employees', 'users.id', 'employees.user_id')
-      .with('addresses')
-      .with('telephones')
-      .where(' users.id', params.id)
+    const employee = await Database.select(
+      'employees.id',
+      'user_id',
+      'name',
+      'email',
+      'type'
+    )
+      .from('users')
+      .innerJoin('employees', 'employees.user_id', 'users.id')
+      .where('users.id', params.id)
       .first();
 
     if (!employee) {
       return response.status(404).json({ notfound: 'User is not found' });
     }
 
-    return response.status(200).json(employee);
+    const address = await Database.select(
+      'id',
+      'cep',
+      'street',
+      'number',
+      'neighborhood',
+      'city',
+      'state'
+    )
+      .from('addresses')
+      .where('user_id', params.id);
+
+    const telephone = await Database.select('id', 'cellphone', 'telephone')
+      .from('telephones')
+      .where('user_id', params.id);
+
+    return response.status(200).json({ employee, address, telephone });
   }
 
   async update({ params, request, response, auth }) {
@@ -122,6 +149,12 @@ class EmployeeController {
 
     if (!userExists) {
       return response.status(404).json({ erro: 'User is not found' });
+    }
+
+    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+
+    if (!userEmployee) {
+      return response.status(400).json({ erro: 'User is not Employee' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
@@ -155,6 +188,12 @@ class EmployeeController {
 
     if (!userExists) {
       return response.status(404).json({ erro: 'User is not found' });
+    }
+
+    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+
+    if (!userEmployee) {
+      return response.status(400).json({ erro: 'User is not Employee' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);

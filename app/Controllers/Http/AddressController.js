@@ -2,7 +2,6 @@
 const User = use('App/Models/User');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Address = use('App/Models/Address');
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 
 const Database = use('Database');
 
@@ -17,7 +16,7 @@ class AddressController {
 
     const { cep, street, number } = request.only(['cep', 'street', 'number']);
 
-    const AddressExists = await Database.select('cep', 'street', 'number')
+    const addressExists = await Database.select('cep', 'street', 'number')
       .from('addresses')
       .where({
         user_id: params.id,
@@ -27,11 +26,12 @@ class AddressController {
       })
       .first();
 
-    if (AddressExists) {
+    if (addressExists) {
       return response
         .status(400)
         .json({ erro: 'You already registered this address' });
     }
+
     const newAddress = await Address.create({
       user_id: params.id,
       ...request.all(),
@@ -100,6 +100,24 @@ class AddressController {
         .json({ erro: 'This address does not belong to this user' });
     }
 
+    const { cep, street, number } = request.only(['cep', 'street', 'number']);
+
+    const addressExists = await Database.select('cep', 'street', 'number')
+      .from('addresses')
+      .where({
+        user_id: params.id,
+        cep,
+        street,
+        number,
+      })
+      .first();
+
+    if (addressExists) {
+      return response
+        .status(400)
+        .json({ erro: 'You already registered this address' });
+    }
+
     address.merge(request.all());
     await address.save();
     return response.status(201).json(address);
@@ -113,27 +131,21 @@ class AddressController {
       return response.status(404).json({ erro: 'User is not found' });
     }
 
-    if (auth.user.type === 'ADM' || userExists.id === auth.user.user_id) {
-      const addresss = await Address.findByOrFail('id', params.address_id);
+    const addresss = await Address.findByOrFail('id', params.address_id);
 
-      if (!addresss) {
-        return response.status(404).json({ erro: 'Address is not found' });
-      }
-
-      if (addresss.user_id !== userExists.id) {
-        return response
-          .status(404)
-          .json({ erro: 'This address does not belong to this user' });
-      }
-
-      await addresss.delete();
-
-      return 'Deleted address';
+    if (!addresss) {
+      return response.status(404).json({ erro: 'Address is not found' });
     }
 
-    return response
-      .status(401)
-      .json('You are not authorized to change this address');
+    if (addresss.user_id !== userExists.id) {
+      return response
+        .status(404)
+        .json({ erro: 'This address does not belong to this user' });
+    }
+
+    await addresss.delete();
+
+    return response.status(200).json({ deleted: 'Deleted Address' });
   }
 }
 

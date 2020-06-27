@@ -15,7 +15,7 @@
 const Route = use('Route');
 
 // Adm
-Route.post('/adm', 'AdmController.store').validator('EmployeePost');
+Route.post('/adm', 'AdmController.store').validator('Employee');
 
 // Autentificação
 Route.post('/session', 'SessionController.login').validator('Session');
@@ -25,9 +25,9 @@ Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
 Route.group(() => {
   // Empregados
   // Obs: Empregados já tem endereços e telefones em sua tabela
-  Route.post('employee', 'EmployeeController.store').validator('EmployeePost');
+  Route.post('employee', 'EmployeeController.store').validator('Employee');
   Route.put('employee/:id', 'EmployeeController.update').validator(
-    'EmployeeUpdate'
+    'UserUpdate'
   );
   Route.resource('employee', 'EmployeeController').only([
     'index',
@@ -40,23 +40,23 @@ Route.group(() => {
 
   // Clientes Controller
   Route.post('client', 'ClientController.store').validator('Client');
-  Route.put('client/:id', 'ClientController.update').validator('Client');
+  Route.put('client/:id', 'ClientController.update').validator('UserUpdate');
   Route.resource('client', 'ClientController').only([
     'index',
     'show',
     'destroy',
   ]);
 
-  // Endereços Cliente
+  // Endereços
   Route.post('address/:id', 'AddressController.store').validator('Address');
   Route.put('address/:id/:address_id', 'AddressController.update').validator(
-    'Endereco'
+    'Address'
   );
   Route.get('address/:id', 'AddressController.index');
   Route.get('address/:id/:address_id', 'AddressController.show');
   Route.delete('address/:id/:address_id', 'AddressController.destroy');
 
-  // Telefones/Celular Cliente
+  // Telefones/Celular
   Route.post('telephone/:id', 'TelephoneController.store').validator(
     'Telephone'
   );

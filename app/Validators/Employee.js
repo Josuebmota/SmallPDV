@@ -1,6 +1,6 @@
 const { rule } = use('Validator');
 
-class EmployeePost {
+class Employee {
   get rules() {
     return {
       name: 'required',
@@ -47,4 +47,4 @@ class EmployeePost {
   }
 }
 
-module.exports = EmployeePost;
+module.exports = Employee;

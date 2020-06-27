@@ -14,7 +14,7 @@ class TelephoneController {
     }
 
     const newTelephone = await Telephone.create({
-      cliente_id: params.id,
+      user_id: params.id,
       ...request.all(),
     });
 
@@ -56,16 +56,44 @@ class TelephoneController {
       return response.status(404).json({ erro: 'This phone does not exist' });
     }
 
-    if (Telephone.user_id !== useExists.id) {
+    if (telephone.user_id !== useExists.id) {
       return response
         .status(404)
         .json({ erro: 'This address does not belong to this user' });
     }
 
-    return Telephone;
+    return telephone;
   }
 
   async update({ params, request, response, auth }) {
+    await auth.check();
+
+    const userExists = await User.findByOrFail('id', params.id);
+
+    if (!userExists) {
+      return response.status(404).json({ erro: 'User is not found' });
+    }
+
+    const phone = await Telephone.findByOrFail('id', params.telephone_id);
+
+    if (!phone) {
+      return response.status(404).json({ erro: 'This phone does not exist' });
+    }
+
+    if (phone.user_id !== userExists.id) {
+      return response
+        .status(404)
+        .json({ erro: 'This phone does not belong to this user' });
+    }
+
+    phone.merge(request.all());
+
+    await phone.save();
+
+    return response.status(201).json(phone);
+  }
+
+  async destroy({ params, response, auth }) {
     await auth.check();
 
     const userExists = await User.findByOrFail('id', params.id);
@@ -86,42 +114,9 @@ class TelephoneController {
         .json({ erro: 'This phone does not belong to this user' });
     }
 
-    Telephone.merge(request.all());
+    await telephone.delete();
 
-    await Telephone.save();
-
-    return response.status(201).json(Telephone);
-  }
-
-  async destroy({ params, response, auth }) {
-    await auth.check();
-
-    const userExists = await User.findByOrFail('id', params.id);
-
-    if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
-    }
-
-    if (auth.user.type === 'ADM' || userExists.id === auth.user.user_id) {
-      const telephone = await Telephone.findByOrFail('id', params.telefone_id);
-
-      if (!telephone) {
-        return response.status(404).json({ erro: 'This phone does not exist' });
-      }
-
-      if (telephone.user_id !== userExists.id) {
-        return response
-          .status(404)
-          .json({ erro: 'This address does not belong to this user' });
-      }
-
-      await telephone.delete();
-
-      return 'Phone deleted';
-    }
-    return response
-      .status(401)
-      .json('You are not authorized to change this phone');
+    return response.status(200).json({ deleted: 'Deleted phone' });
   }
 }
 
