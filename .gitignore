@@ -9,3 +9,4 @@ package-lock.json
 
 # The development sqlite file
 database/*.sqlite
+database/*.sqlite-journal

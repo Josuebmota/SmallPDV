@@ -15,7 +15,7 @@
 const Route = use('Route');
 
 // Adm
-Route.post('/adm', 'AdmController.store').validator('EmpregadoPost');
+Route.post('/adm', 'AdmController.store').validator('Employee');
 
 // Autentificação
 Route.post('/session', 'SessionController.login').validator('Session');
@@ -25,49 +25,48 @@ Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
 Route.group(() => {
   // Empregados
   // Obs: Empregados já tem endereços e telefones em sua tabela
-  Route.post('empregados', 'EmpregadosController.store').validator(
-    'EmpregadoPost'
+  Route.post('employee', 'EmployeeController.store').validator('Employee');
+  Route.put('employee/:id', 'EmployeeController.update').validator(
+    'UserUpdate'
   );
-  Route.put('empregados/:id', 'EmpregadosController.update').validator(
-    'EmpregadoUpdate'
-  );
-  Route.resource('empregados', 'EmpregadosController').only([
+  Route.resource('employee', 'EmployeeController').only([
     'index',
     'show',
     'destroy',
   ]);
 
   // Perfil Empregado
-  Route.get('perfil', 'PerfilEmpregadoController.index');
+  Route.get('profile', 'ProfileEmployeeController.index');
 
   // Clientes Controller
-  Route.post('clientes', 'ClientesController.store').validator('Cliente');
-  Route.put('clientes/:id', 'ClientesController.update').validator('Cliente');
-  Route.resource('clientes', 'ClientesController').only([
+  Route.post('client', 'ClientController.store').validator('Client');
+  Route.put('client/:id', 'ClientController.update').validator('UserUpdate');
+  Route.resource('client', 'ClientController').only([
     'index',
     'show',
     'destroy',
   ]);
 
-  // Endereços Cliente
-  Route.post('enderecos/:id', 'EnderecoController.store').validator('Endereco');
-  Route.put(
-    'enderecos/:id/:endereco_id',
-    'EnderecoController.update'
-  ).validator('Endereco');
-  Route.get('enderecos/:id', 'EnderecoController.index');
-  Route.get('enderecos/:id/:endereco_id', 'EnderecoController.show');
-  Route.delete('enderecos/:id/:endereco_id', 'EnderecoController.destroy');
+  // Endereços
+  Route.post('address/:id', 'AddressController.store').validator('Address');
+  Route.put('address/:id/:address_id', 'AddressController.update').validator(
+    'Address'
+  );
+  Route.get('address/:id', 'AddressController.index');
+  Route.get('address/:id/:address_id', 'AddressController.show');
+  Route.delete('address/:id/:address_id', 'AddressController.destroy');
 
-  // Telefones/Celular Cliente
-  Route.post('telefones/:id', 'TelefoneController.store').validator('Telefone');
+  // Telefones/Celular
+  Route.post('telephone/:id', 'TelephoneController.store').validator(
+    'Telephone'
+  );
   Route.put(
-    'telefones/:id/:telefone_id',
-    'TelefoneController.update'
-  ).validator('Telefone');
-  Route.get('telefones/:id', 'TelefoneController.index');
-  Route.get('telefones/:id/:telefone_id', 'TelefoneController.show');
-  Route.delete('telefones/:id/:telefone_id', 'TelefoneController.destroy');
+    'telephone/:id/:telephone_id',
+    'TelephoneController.update'
+  ).validator('Telephone');
+  Route.get('telephone/:id', 'TelephoneController.index');
+  Route.get('telephone/:id/:telephone_id', 'TelephoneController.show');
+  Route.delete('telephone/:id/:telephone_id', 'TelephoneController.destroy');
 }).middleware('auth');
 
 //products

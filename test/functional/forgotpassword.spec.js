@@ -14,7 +14,7 @@ test('Teste de Esquecer a senha', async ({ assert, client }) => {
   Mail.fake();
   const email = 'josuebatistam1@gmail.com';
 
-  const user = await Factory.model('App/Models/Empregados').create({ email });
+  const user = await Factory.model('App/Models/User').create({ email });
 
   const response = await client.post('/forgot').send({ email }).end();
 
@@ -35,7 +35,7 @@ test('Teste de Esquecer a senha', async ({ assert, client }) => {
 test('Resetar senha', async ({ assert, client }) => {
   const email = 'josuebatistam1@gmail.com';
 
-  const user = await Factory.model('App/Models/Empregados').create({ email });
+  const user = await Factory.model('App/Models/User').create({ email });
   const userToken = await Factory.model('App/Models/Token').make();
 
   await user.tokens().save(userToken);
@@ -63,7 +63,7 @@ test('Resetar o password depoist de 2hr do forgotpassword ser requisitado', asyn
 }) => {
   const email = 'josuebatistam1@gmail.com';
 
-  const user = await Factory.model('App/Models/Empregados').create({ email });
+  const user = await Factory.model('App/Models/User').create({ email });
   const userToken = await Factory.model('App/Models/Token').make();
 
   await user.tokens().save(userToken);
