@@ -1,6 +1,5 @@
 'use strict';
 
-const { Database } = require('sqlite3');
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
