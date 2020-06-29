@@ -73,17 +73,20 @@ class ProductController {
 
     try {
       const id = await Product.getMax('id');
-      let product = await Product.create({ ...data, id: id + 1 },trx);
+      let product = await Product.create({ ...data, id: id + 1 }, trx);
       const categories = request.only('categories');
       var category = null;
 
       if (categories) {
         category = [];
         for (const id of categories['categories']) {
-          await ProductCategory.create({
-            id_category: id,
-            id_product: product.id,
-          },trx);
+          await ProductCategory.create(
+            {
+              id_category: id,
+              id_product: product.id,
+            },
+            trx
+          );
           const categoryData = await Category.findOrFail(id);
           category.push(categoryData.$attributes);
         }
@@ -131,12 +134,9 @@ class ProductController {
     let product;
     product = await Product.findBy('bar_code', params.code);
     if (!product) product = await Product.findBy('internal_code', params.code);
-
-    if (product) {
-      return product;
-    } else {
-      response.send({});
-    }
+    if (!product)
+      return response.status(404).send({ message: 'Produto não encontrado' });
+    else return response.status(200).json(product);
   }
   /**
    * Update product details.
@@ -147,7 +147,9 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const product = await Product.findOrFail(params.id);
+    const product = await Product.findBy('id', params.id);
+    if (!product)
+      return response.status(404).send({ message: 'Produto não encontrado' });
 
     const data = request.all();
     product.merge(data);
@@ -165,14 +167,23 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response }) {
-    const product = await Product.findOrFail(params.id);
+    const product = await Product.findBy('id', params.id);
+    const trx = await DB.beginTransaction();
 
-    // if (product.user_id !== auth.user.id) {
-    //   return response.status(401).send({ error: 'Not authorized' })
-    // }
+    if (!product)
+      return response.status(404).send({ message: 'Produto não encontrado' });
 
-    await product.delete();
-    return response.status(200).send();
+    try {
+      await product.delete(trx);
+      await trx.commit();
+      return response
+        .status(200)
+        .send({ message: 'Produto excluído com sucesso.' });
+    } catch (err) {
+      await trx.rollback();
+
+      return response.status(err.status).send(err.message);
+    }
   }
 }
 
