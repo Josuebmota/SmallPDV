@@ -24,7 +24,6 @@ Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
 
 Route.group(() => {
   // Empregados
-  // Obs: Empregados já tem endereços e telefones em sua tabela
   Route.post('employee', 'EmployeeController.store').validator('Employee');
   Route.put('employee/:id', 'EmployeeController.update').validator(
     'UserUpdate'
@@ -73,7 +72,7 @@ Route.group(() => {
 Route.group(() => {
   Route.resource('products', 'ProductController').apiOnly().except(['store']);
   Route.post('products', 'ProductController.store').validator('Product');
-  Route.get('products/code/:code', 'ProductController.showByCode');
+  // Route.get('products/code/:code', 'ProductController.showByCode');
 });
 
 // categories

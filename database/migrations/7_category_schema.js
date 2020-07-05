@@ -23,7 +23,6 @@ class CategorySchema extends Schema {
         .inTable('categories')
         .onDelete('CASCADE');
       table.integer('child_count');
-      table.string('image');
       table.timestamps();
     });
   }

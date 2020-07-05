@@ -16,6 +16,7 @@ class ProductsSchema extends Schema {
       table.string('unity');
       table.boolean('fraction_sell').notNullable();
       table.boolean('stock_control').notNullable();
+      table.string('image');
       table.timestamps();
     });
   }

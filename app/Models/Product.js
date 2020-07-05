@@ -2,8 +2,10 @@
 const Model = use('Model');
 
 class Product extends Model {
-  product_categories() {
-    return this.hasMany('App/Models/ProductCategory');
+  categories() {
+    return this.belongsToMany('App/Models/Category').pivotModel(
+      'App/Models/ProductCategory'
+    );
   }
 }
 
