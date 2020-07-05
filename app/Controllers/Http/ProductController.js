@@ -1,14 +1,13 @@
-'use strict';
-
-
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Product = use('App/Models/Product');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const ProductCategory = use('App/Models/ProductCategory');
 const Category = use('App/Models/Category');
+
 const DB = use('Database');
 /**
  * Resourceful controller for interacting with products
@@ -17,42 +16,46 @@ class ProductController {
   /**
    * Show a list of all products.
    * GET products
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
-    const products = await Product.query().fetch();
+  async index({ response }) {
+    const products = await DB.select(
+      'products.id',
+      'name',
+      'bar_code',
+      'internal_code',
+      'description',
+      'cost_price',
+      'sell_price',
+      'to_sell',
+      'show_online',
+      'unity',
+      'fraction_sell',
+      'stock_control',
+      'category_id',
+      'level',
+      'label',
+      'parent_id',
+      'child_count',
+      'image'
+    )
+      .from('products')
+      .innerJoin(
+        'product_categories',
+        'product_categories.product_id',
+        'products.id'
+      )
+      .innerJoin(
+        'categories',
+        'categories.id',
+        'product_categories.category_id'
+      );
 
-    let data = [];
-    for (const product of products.rows) {
-      const relations = await ProductCategory.query()
-        .where('id_product', product.id)
-        .select(['id_category'])
-        .fetch();
-      let category = null;
-
-      if (relations.rows.length > 0) {
-        category = [];
-        for (const relation of relations.rows) {
-          category.push(await Category.findOrFail(relation.id_category));
-        }
-      }
-      const newProduct = { ...product.$attributes, category: category };
-      data.push(newProduct);
-    }
-    response.status(200).send(data);
+    response.status(200).send(products);
   }
 
   /**
    * Create/save a new product.
    * POST products
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
    */
   async store({ request, response }) {
     const data = request.only([
@@ -68,48 +71,35 @@ class ProductController {
       'fraction_sell',
       'stock_control',
     ]);
+
     const trx = await DB.beginTransaction();
 
-    try {
-      const id = await Product.getMax('id');
-      let product = await Product.create({ ...data, id: id + 1 }, trx);
-      const categories = request.only('categories');
-      var category = null;
+    const product = await Product.create(data, trx);
+    const { categories } = request.only('categories');
 
-      if (categories) {
-        category = [];
-        for (const id of categories['categories']) {
-          await ProductCategory.create(
-            {
-              id_category: id,
-              id_product: product.id,
-            },
-            trx
-          );
-          const categoryData = await Category.findOrFail(id);
-          category.push(categoryData.$attributes);
-        }
-      }
-      await trx.commit();
-      response.status(201).send({ ...product.$attributes, category: category });
-    } catch (err) {
-      console.log();
-      response.status(500).send({ error: err });
-      await trx.rollback();
-    }
+    const product_id = product.id;
+    const productCategories = categories
+      .split(',')
+      .map((category) => category.trim())
+      .map((category_id) => {
+        return {
+          product_id,
+          category_id,
+        };
+      });
+
+    await ProductCategory.createMany(productCategories, trx);
+    await trx.commit();
+
+    response.status(201).send({ product, productCategories });
   }
 
   /**
    * Display a single product.
    * GET products/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
   async show({ params }) {
-    let product = await Product.findOrFail(params.id);
+    const product = await Product.findOrFail(params.id);
 
     const relations = await ProductCategory.query()
       .where('id_product', product.id)
@@ -121,10 +111,11 @@ class ProductController {
         category.push(await Category.findOrFail(relation.id_category));
       }
     }
-    const data = { ...product.$attributes, category: category };
+    const data = { ...product.$attributes, category };
 
     return data;
   }
+
   /*
    * Display a single product by bar_code or internal_code
    * GET products/code/:code
@@ -135,8 +126,9 @@ class ProductController {
     if (!product) product = await Product.findBy('internal_code', params.code);
     if (!product)
       return response.status(404).send({ message: 'Produto não encontrado' });
-    else return response.status(200).json(product);
+    return response.status(200).json(product);
   }
+
   /**
    * Update product details.
    * PUT or PATCH products/:id
