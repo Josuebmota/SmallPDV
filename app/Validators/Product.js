@@ -25,7 +25,7 @@ class Product {
       'internal_code.unique': 'Código interno é único.',
       'cost_price.required': 'Preço do custo é obrigatório.',
       'sell_price.required': 'Preço da venda é obrigatório.',
-      'to_sell.required': 'Preço da venda é obrigatório.',
+      'to_sell.required': 'Campo venda é obrigatório.',
       'show_online.required': 'Mostrar online é obrigatório.',
       'unique.required': 'Insira uma unidade.',
       'fraction_sell.required': 'Venda de fração é obrigatório.',
