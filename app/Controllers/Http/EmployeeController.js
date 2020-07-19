@@ -4,9 +4,6 @@ const User = use('App/Models/User');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Employee = use('App/Models/Employee');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Address = use('App/Models/Address');
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Telephone = use('App/Models/Telephone');
 
 const Database = use('Database');
 
@@ -16,9 +13,9 @@ class EmployeeController {
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
     if (admExists.type !== 'ADM') {
-      return response
-        .status(401)
-        .json({ unauthorized: 'You are not authorized to list employees' });
+      return response.status(401).json({
+        message: 'Você não tem autorização para cadastrar empregados',
+      });
     }
 
     const trx = await Database.beginTransaction();
@@ -27,17 +24,6 @@ class EmployeeController {
 
     const dataEmployee = request.only(['type']);
 
-    const dataAddress = request.only([
-      'cep',
-      'street',
-      'number',
-      'neighborhood',
-      'city',
-      'state',
-    ]);
-
-    const dataTelephone = request.only(['cellphone', 'telephone']);
-
     const { id, nome, email } = await User.create(dataUser, trx);
 
     const { type } = await Employee.create(
@@ -45,30 +31,9 @@ class EmployeeController {
       trx
     );
 
-    if (Object.entries(dataAddress).length !== 0) {
-      await Address.create(
-        {
-          user_id: id,
-          ...dataAddress,
-        },
-        trx
-      );
-    }
-    if (Object.entries(dataTelephone).length !== 0) {
-      await Telephone.create(
-        {
-          user_id: id,
-          ...dataTelephone,
-        },
-        trx
-      );
-    }
-
     trx.commit();
 
-    return response
-      .status(201)
-      .json({ id, nome, email, type, dataAddress, dataTelephone });
+    return response.status(201).json({ id, nome, email, type });
   }
 
   async index({ auth, response }) {
@@ -76,9 +41,9 @@ class EmployeeController {
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
     if (admExists.type !== 'ADM') {
-      return response
-        .status(401)
-        .json({ unauthorized: 'You are not authorized to list employees' });
+      return response.status(401).json({
+        message: 'Você não tem autorização para listar empregados',
+      });
     }
 
     const employees = await Database.select(
@@ -92,7 +57,9 @@ class EmployeeController {
       .innerJoin('employees', 'users.id', 'employees.user_id');
 
     if (!employees) {
-      return 'There are no registered employees';
+      return response
+        .status(200)
+        .json({ message: 'Não foi encontrado nenhum cliente' });
     }
 
     return employees;
@@ -103,44 +70,30 @@ class EmployeeController {
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
     if (admExists.type !== 'ADM') {
-      return response
-        .status(401)
-        .json({ unauthorized: 'You are not authorized to list employees' });
+      return response.status(401).json({
+        message: 'Você não tem autorização para listar empregados',
+      });
     }
 
-    const employee = await Database.select(
-      'employees.id',
-      'user_id',
-      'name',
-      'email',
-      'type'
-    )
-      .from('users')
-      .innerJoin('employees', 'employees.user_id', 'users.id')
-      .where('users.id', params.id)
-      .first();
+    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+
+    if (!userEmployee) {
+      return response.status(400).json({ erro: 'Usuário não é um empregado' });
+    }
+
+    const employee = await User.query()
+      .select('id', 'name', 'email', 'cpf')
+      .with('employees')
+      .with('addresses')
+      .with('telephones')
+      .where('id', params.id)
+      .fetch();
 
     if (!employee) {
       return response.status(404).json({ notfound: 'User is not found' });
     }
 
-    const address = await Database.select(
-      'id',
-      'cep',
-      'street',
-      'number',
-      'neighborhood',
-      'city',
-      'state'
-    )
-      .from('addresses')
-      .where('user_id', params.id);
-
-    const telephone = await Database.select('id', 'cellphone', 'telephone')
-      .from('telephones')
-      .where('user_id', params.id);
-
-    return response.status(200).json({ employee, address, telephone });
+    return response.status(200).json({ employee });
   }
 
   async update({ params, request, response, auth }) {
@@ -154,7 +107,7 @@ class EmployeeController {
     const userEmployee = await Employee.findByOrFail('user_id', params.id);
 
     if (!userEmployee) {
-      return response.status(400).json({ erro: 'User is not Employee' });
+      return response.status(400).json({ erro: 'Usuário não é um empregado' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
@@ -174,12 +127,12 @@ class EmployeeController {
         await employee.save();
       }
 
-      return response.status(201).json({ update: 'Updated Employee' });
+      return response.status(201).json({ updated: 'Cliente Atualizado' });
     }
 
-    return response
-      .status(401)
-      .json({ unauthorized: 'You are not authorized to list employees' });
+    return response.status(401).json({
+      message: 'Você não tem autorização para atualizar empregados',
+    });
   }
 
   async destroy({ params, response, auth }) {
@@ -187,13 +140,13 @@ class EmployeeController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ notfound: 'Usuário não encontrado' });
     }
 
     const userEmployee = await Employee.findByOrFail('user_id', params.id);
 
     if (!userEmployee) {
-      return response.status(400).json({ erro: 'User is not Employee' });
+      return response.status(400).json({ erro: 'Usuário não é um empregado' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
@@ -203,11 +156,11 @@ class EmployeeController {
 
       await employee.delete();
 
-      return response.status(200).json({ delete: 'Deleted Employee' });
+      return response.status(200).json({ message: 'Empregado deletado' });
     }
-    return response
-      .status(401)
-      .json({ unauthorized: 'You are not authorized to list employees' });
+    return response.status(401).json({
+      message: 'Você não tem autorização para deletar empregados',
+    });
   }
 }
 

@@ -6,15 +6,9 @@ const Product = use('App/Models/Product');
 const ProductCategory = use('App/Models/ProductCategory');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 
-const DB = use('Database');
-/**
- * Resourceful controller for interacting with products
- */
+const Database = use('Database');
+
 class ProductController {
-  /**
-   * Show a list of all products.
-   * GET products
-   */
   async index({ response, request }) {
     const page = request.get().page || 1;
 
@@ -38,10 +32,6 @@ class ProductController {
     response.status(200).send(products);
   }
 
-  /**
-   * Create/save a new product.
-   * POST products
-   */
   async store({ request, response }) {
     const data = request.only([
       'name',
@@ -57,7 +47,7 @@ class ProductController {
       'stock_control',
     ]);
 
-    const trx = await DB.beginTransaction();
+    const trx = await Database.beginTransaction();
 
     const product = await Product.create(data, trx);
     const { categories } = await request.only('categories');
@@ -79,10 +69,6 @@ class ProductController {
     response.status(201).send({ product, productCategories });
   }
 
-  /**
-   * Display a single product.
-   * GET products/:id
-   */
   async show({ params, response }) {
     const product = await Product.query()
       .with('categories')
@@ -96,10 +82,6 @@ class ProductController {
     return product;
   }
 
-  /**
-   * Update product details.
-   * PUT or PATCH products/:id
-   */
   async update({ params, request, response }) {
     const product = await Product.findBy('id', params.id);
 
@@ -113,10 +95,6 @@ class ProductController {
     return response.status(200).json(product);
   }
 
-  /**
-   * Delete a product with id.
-   * DELETE products/:id
-   */
   async destroy({ params, response, auth }) {
     const product = await Product.findBy('id', params.id);
 
@@ -126,7 +104,7 @@ class ProductController {
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
     if (admExists.type !== 'ADM') {
-      return response.status(401).json('You are not authorized to delete');
+      return response.status(401).json('Você não tem autorização para deletar');
     }
 
     await product.delete(product);

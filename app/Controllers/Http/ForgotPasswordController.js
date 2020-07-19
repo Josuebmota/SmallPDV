@@ -33,7 +33,7 @@ class ForgotPasswordController {
           .subject('Pegasus Ti - Recuperação de Senha');
       }
     );
-    return response.status(200).send('Email send');
+    return response.status(200).send('Email enviado');
   }
 }
 

@@ -41,18 +41,18 @@ class ProductSerializer {
 
   toJSON() {
     return {
-      "id": this.id,
-      "name": this.name,
-      "bar_code": this.bar_code,
-      "internal_code": this.internal_code,
-      "description": this.description,
-      "cost_price": parseFloat(this.cost_price).toFixed(2),
-      "sell_price": parseFloat(this.sell_price).toFixed(2),
-      "to_sell": this.to_sell,
-      "show_online": this.show_oline,
-      "unity": this.unity,
-      "fraction_sell": this.fraction_sell,
-      "stock_control": this.stock_control,
+      id: this.id,
+      name: this.name,
+      bar_code: this.bar_code,
+      internal_code: this.internal_code,
+      description: this.description,
+      cost_price: parseFloat(this.cost_price).toFixed(2),
+      sell_price: parseFloat(this.sell_price).toFixed(2),
+      to_sell: this.to_sell,
+      show_online: this.show_oline,
+      unity: this.unity,
+      fraction_sell: this.fraction_sell,
+      stock_control: this.stock_control,
     };
     // return formatted data
   }

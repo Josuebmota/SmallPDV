@@ -13,7 +13,7 @@ class ProductsSchema extends Schema {
       table.decimal('sell_price').notNullable();
       table.boolean('to_sell').notNullable();
       table.boolean('show_online').notNullable();
-      table.string('unity');
+      table.string('unity').notNullable();
       table.boolean('fraction_sell').notNullable();
       table.boolean('stock_control').notNullable();
       table.string('image');

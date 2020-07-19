@@ -1,20 +1,35 @@
-const { rule } = use('Validator');
-
 class Product {
   get rules() {
     return {
-      name :'required' ,
-      bar_code : 'required_without_any:internal_code',
-      internal_code : 'required_without_any:bar_code' ,
-      cost_price : 'required',
-      sell_price :'required' ,
+      name: 'required',
+      bar_code: 'required_without_any:internal_code|unique:products',
+      internal_code: 'required_without_any:bar_code|unique:products',
+      cost_price: 'required',
+      sell_price: 'required',
+      to_sell: 'required',
+      unique: 'required',
+      show_online: 'required',
+      fraction_sell: 'required',
+      stock_control: 'required',
     };
   }
 
   get messages() {
     return {
-      "bar_code.required_without_any": "Você precisa inserir um código de barras ou código interno.",
-      "internal_code.required_without_any": "Você precisa inserir um código de barras ou código interno."
+      'name.required': 'Nome do produto é obrigatório.',
+      'bar_code.required_without_any':
+        'Você precisa inserir um código de barras ou código interno.',
+      'bar_code.unique': 'Código de barra é único.',
+      'internal_code.required_without_any':
+        'Você precisa inserir um código de barras ou código interno.',
+      'internal_code.unique': 'Código interno é único.',
+      'cost_price.required': 'Preço do custo é obrigatório.',
+      'sell_price.required': 'Preço da venda é obrigatório.',
+      'to_sell.required': 'Preço da venda é obrigatório.',
+      'show_online.required': 'Mostrar online é obrigatório.',
+      'unique.required': 'Insira uma unidade.',
+      'fraction_sell.required': 'Venda de fração é obrigatório.',
+      'stock_control.required': 'Controle de estoque é obrigatório.',
     };
   }
 
