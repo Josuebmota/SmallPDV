@@ -6,7 +6,7 @@ class CategorySchema extends Schema {
     this.create('categories', (table) => {
       table.increments();
       table.integer('level').unsigned();
-      table.string('label').unique();
+      table.string('name').unique();
       table
         .integer('parent_id')
         .unsigned()
