@@ -10,6 +10,7 @@ const { Database } = require('sqlite3');
 const Product = use('App/Models/Product');
 const ProductCategory = use('App/Models/ProductCategory');
 const Category = use('App/Models/Category');
+const Stock = use ('App/Models/Stock');
 const DB = use('Database');
 /**
  * Resourceful controller for interacting with products
@@ -24,11 +25,18 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
+  async index({ response }) {
     const products = await Product.query().fetch();
 
     let data = [];
     for (const product of products.rows) {
+      let newProduct = { ...product.$attributes};
+
+      if (product.stock_control){
+        const stock = await Stock.query().select('amount').where('id_product',product.id).fetch();
+        newProduct = {...newProduct,amount:stock.rows[0].amount};
+      }
+
       const relations = await ProductCategory.query()
         .where('id_product', product.id)
         .select(['id_category'])
@@ -40,8 +48,9 @@ class ProductController {
         for (const relation of relations.rows) {
           category.push(await Category.findOrFail(relation.id_category));
         }
+
       }
-      const newProduct = { ...product.$attributes, category: category };
+      newProduct = {...newProduct,category:category};
       data.push(newProduct);
     }
     response.status(200).send(data);
@@ -94,8 +103,7 @@ class ProductController {
       await trx.commit();
       response.status(201).send({ ...product.$attributes, category: category });
     } catch (err) {
-      console.log();
-      response.status(500).send({ error: err });
+      response.status(500).send({ message: err.message });
       await trx.rollback();
     }
   }

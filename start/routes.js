@@ -78,5 +78,10 @@ Route.group(() => {
 
 //categories
 Route.group(() => {
-  Route.resource('categories', 'CategoryController').apiOnly();
-});
+  Route.resource('categories', 'CategoryController').apiOnly().except(['index']);
+}).middleware('auth');
+
+Route.get('categories', 'CategoryController.index');
+
+//stock
+Route.group(()=>{});

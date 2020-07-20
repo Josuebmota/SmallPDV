@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Category = use('App/Models/Category');
+const Employee = use('App/Models/Employee');
+
 /**
  * Resourceful controller for interacting with categories
  */
@@ -36,12 +38,13 @@ class CategoryController {
   // "created_at": "16/06/2020 18:24:00",
   // "updated_at": "16/06/2020 18:24:00"
   async store({ request, response }) {
-    const data = request.only([
-      'level',
-      'label',
-      'parent_id',
-      'child_count'
-    ]);
+    await auth.check();
+
+    const isAdm = await Employee.findBy('user_id', auth.user.id);
+    if (isAdm.type !== 'ADM')
+      return response.status(401).json({ message: 'Não autorizado' });
+
+    const data = request.only(['level', 'label', 'parent_id', 'child_count']);
 
     const category = await Category.create(data);
     return category;
@@ -70,6 +73,12 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
+    await auth.check();
+
+    const isAdm = await Employee.findBy('user_id', auth.user.id);
+    if (isAdm.type !== 'ADM')
+      return response.status(401).json({ message: 'Não autorizado' });
+
     const category = await Category.findOrFail(params.id);
 
     const data = request.all();
@@ -88,6 +97,13 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
+    await auth.check();
+
+    const isAdm = await Employee.findBy('user_id', auth.user.id);
+    if (isAdm.type !== 'ADM')
+      return response.status(401).json({ message: 'Não autorizado' });
+
+
     const category = await Category.findOrFail(params.id);
 
     // if (category.user_id !== auth.user.id) {
@@ -98,6 +114,5 @@ class CategoryController {
     return response.status(200).send();
   }
 }
-
 
 module.exports = CategoryController;
