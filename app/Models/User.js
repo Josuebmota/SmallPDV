@@ -42,11 +42,11 @@ class User extends Model {
   }
 
   employees() {
-    return this.belongsTo('App/Models/Employee');
+    return this.hasOne('App/Models/Employee');
   }
 
   clients() {
-    return this.belongsTo('App/Models/Client');
+    return this.hasOne('App/Models/Client');
   }
 
   addresses() {

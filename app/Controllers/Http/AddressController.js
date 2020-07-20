@@ -11,7 +11,7 @@ class AddressController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'User is not found' });
     }
 
     const { cep, street, number } = request.only(['cep', 'street', 'number']);
@@ -29,7 +29,7 @@ class AddressController {
     if (addressExists) {
       return response
         .status(400)
-        .json({ erro: 'You already registered this address' });
+        .json({ message: 'Você já registrou este endereço' });
     }
 
     const newAddress = await Address.create({
@@ -45,13 +45,15 @@ class AddressController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const address = await Address.query().where('user_id', params.id).fetch();
 
     if (!address) {
-      return response.status(404).json('Address is not found');
+      return response
+        .status(200)
+        .json({ message: 'Não existe endereços para esse usuário' });
     }
 
     return address;
@@ -62,19 +64,19 @@ class AddressController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const address = await Address.findByOrFail('id', params.address_id);
 
     if (!address) {
-      return response.status(404).json({ erro: 'Address is not found' });
+      return response.status(404).json({ message: 'Endereço não encontrado' });
     }
 
     if (address.user_id !== userExists.id) {
       return response
-        .status(404)
-        .json({ erro: 'This address does not belong to this user' });
+        .status(400)
+        .json({ messager: 'Esse endereço não pertence a este usuário' });
     }
 
     return address;
@@ -85,19 +87,19 @@ class AddressController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const address = await Address.findByOrFail('id', params.address_id);
 
     if (!address) {
-      return response.status(404).json({ erro: 'Address is not found' });
+      return response.status(404).json({ message: 'Endereço não encontrado' });
     }
 
     if (address.user_id !== userExists.id) {
       return response
-        .status(404)
-        .json({ erro: 'This address does not belong to this user' });
+        .status(400)
+        .json({ message: 'Esse endereço não pertence a este usuário' });
     }
 
     const { cep, street, number } = request.only(['cep', 'street', 'number']);
@@ -115,7 +117,7 @@ class AddressController {
     if (addressExists) {
       return response
         .status(400)
-        .json({ erro: 'You already registered this address' });
+        .json({ message: 'Você já registrou esse endereço' });
     }
 
     address.merge(request.all());
@@ -128,24 +130,26 @@ class AddressController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const addresss = await Address.findByOrFail('id', params.address_id);
 
     if (!addresss) {
-      return response.status(404).json({ erro: 'Address is not found' });
+      return response.status(404).json({ message: 'Endereço não encontrado' });
     }
 
     if (addresss.user_id !== userExists.id) {
       return response
-        .status(404)
-        .json({ erro: 'This address does not belong to this user' });
+        .status(400)
+        .json({ message: 'Esse endereço não pertence a este usuário' });
     }
 
     await addresss.delete();
 
-    return response.status(200).json({ deleted: 'Deleted Address' });
+    return response
+      .status(200)
+      .json({ message: 'Endereço deletado com sucesso' });
   }
 }
 
