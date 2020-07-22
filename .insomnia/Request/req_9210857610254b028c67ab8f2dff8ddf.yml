@@ -1,0 +1,28 @@
+_id: req_9210857610254b028c67ab8f2dff8ddf
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTQ2OTg2MH0.cZK5mULAkxhkTwv7mi8BFRvcoqBBGa4ZmGt_xYz52IQ
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591666018892
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878936090.5
+method: GET
+modified: 1593220761630
+name: Show
+parameters: []
+parentId: fld_713d2d8cd53b4b0e82b9b90b2a5497ec
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/telephone/1/4"

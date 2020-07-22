@@ -1,0 +1,25 @@
+_id: req_912c2c09c1724c5db76b1df63b69dd8d
+authentication: {}
+body: {}
+created: 1595094344706
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1593281243520
+method: GET
+modified: 1595380517430
+name: index
+parameters:
+  - description: ""
+    id: pair_62f80f44f12e42ffac93a2d416200df3
+    name: page
+    value: "5"
+parentId: fld_7bffae1f5ee34772a9b452aae4a31425
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/products"
