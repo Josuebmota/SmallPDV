@@ -25,7 +25,7 @@ class ProductController {
         'image'
       )
       .with('categories', (category) => {
-        category.select('label');
+        category.select('name');
       })
       .paginate(page);
 
