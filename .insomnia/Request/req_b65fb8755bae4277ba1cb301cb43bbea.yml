@@ -1,0 +1,28 @@
+_id: req_b65fb8755bae4277ba1cb301cb43bbea
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTQ2OTg2MH0.cZK5mULAkxhkTwv7mi8BFRvcoqBBGa4ZmGt_xYz52IQ
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591665999798
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878936015.5
+method: GET
+modified: 1593218044731
+name: Show
+parameters: []
+parentId: fld_d6cbe7ee22d24d9ebc9cd6d2ac6ca4eb
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/address/1/5"

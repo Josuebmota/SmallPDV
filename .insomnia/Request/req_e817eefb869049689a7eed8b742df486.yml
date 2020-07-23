@@ -1,0 +1,35 @@
+_id: req_e817eefb869049689a7eed8b742df486
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MzIxNjkxMn0.3cQkvrWpS85Ik6dSPu8RYVINxqkYDFQ4-WA_KjGo1pc
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "Robson",
+    	"email": "robson@gmail.com",
+    	"cpf": "258.722.255-55",
+    	"password": "coxinha",
+    	"password_confirmation":"coxinha"
+    }
+created: 1590878935978
+description: ""
+headers:
+  - id: pair_7f92f634f04e4e95b3910ca6258d4500
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878935978
+method: POST
+modified: 1595114871788
+name: Create
+parameters: []
+parentId: fld_a1dcf0319249490693907a295c326065
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/employee"

@@ -1,0 +1,28 @@
+_id: req_06193b669ad8489f8557dce9f5998277
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MzE5NzgxMX0.sQZDTWv8uooaB2m6lh8jvQq8sznsmMumB2m8icOkoVE
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591462633286
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1591034920528.625
+method: DELETE
+modified: 1593197827552
+name: Delete
+parameters: []
+parentId: fld_a1dcf0319249490693907a295c326065
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/employee/3"

@@ -1,0 +1,21 @@
+_id: req_102146c7db2c424cb2aaa20ca8c703b7
+authentication: {}
+body: {}
+created: 1595111627266
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1593734507255
+method: DELETE
+modified: 1595111633625
+name: Delete
+parameters: []
+parentId: fld_7bffae1f5ee34772a9b452aae4a31425
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/products/1"

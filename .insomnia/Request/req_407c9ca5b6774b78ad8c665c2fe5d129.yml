@@ -1,0 +1,28 @@
+_id: req_407c9ca5b6774b78ad8c665c2fe5d129
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTQ2OTg2MH0.cZK5mULAkxhkTwv7mi8BFRvcoqBBGa4ZmGt_xYz52IQ
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591470213114
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878936103
+method: DELETE
+modified: 1593217797877
+name: Delete
+parameters: []
+parentId: fld_84762068249b40b2a876376fe1a9b2a1
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/client/3"

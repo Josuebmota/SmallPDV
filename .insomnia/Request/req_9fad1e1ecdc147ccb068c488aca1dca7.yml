@@ -1,0 +1,28 @@
+_id: req_9fad1e1ecdc147ccb068c488aca1dca7
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MzIxNjkxMn0.3cQkvrWpS85Ik6dSPu8RYVINxqkYDFQ4-WA_KjGo1pc
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591462575662
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1591218027021.5
+method: GET
+modified: 1593220777794
+name: Show
+parameters: []
+parentId: fld_a1dcf0319249490693907a295c326065
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/employee/1"

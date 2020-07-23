@@ -1,0 +1,36 @@
+_id: req_3b6b1a97ea8f45068f089d2dfa39a5c7
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTY1OTU3MH0.Vw_48-ofEQTZ-S6m7YnAxEZWmDK-AGaI83reB1UsThc
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"cep":"60710-730",
+    	"street":"França",
+    	"number":"7878",
+    	"neighborhood":"cosco",
+    	"city":"fortaleza",
+    	"state":"CE"
+    }
+created: 1591662963643
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878935890.5
+method: PUT
+modified: 1593218207038
+name: Update
+parameters: []
+parentId: fld_d6cbe7ee22d24d9ebc9cd6d2ac6ca4eb
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/address/1/5"
