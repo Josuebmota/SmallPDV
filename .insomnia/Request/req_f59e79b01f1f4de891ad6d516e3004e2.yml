@@ -1,0 +1,23 @@
+_id: req_f59e79b01f1f4de891ad6d516e3004e2
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MzE5NzgxMX0.sQZDTWv8uooaB2m6lh8jvQq8sznsmMumB2m8icOkoVE
+  type: bearer
+body: {}
+created: 1591468188580
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1591468188580
+method: GET
+modified: 1593197846762
+name: index
+parameters: []
+parentId: fld_e6d1c5737e1d43db9231a2a651c5cf8d
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/profile"

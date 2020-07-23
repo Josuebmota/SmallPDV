@@ -1,0 +1,40 @@
+_id: req_d3050287bf3340f7a55f963c7df071f3
+authentication: {}
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	 "name": "Mushroom - Lg - Cello",
+    		"bar_code": "43403968967670144",
+    		"internal_code": "840670",
+    		"description": "at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat",
+    		"cost_price": 45.7,
+    		"sell_price": 46.62,
+    	"to_sell": 0,
+    		"show_online": 1,
+    		"unity": null,
+    		"fraction_sell": 1,
+    		"stock_control": 0,
+    		"categories": "1,8,99"
+    }
+created: 1595094298460
+description: ""
+headers:
+  - id: pair_82520548eb0c4638b094850c878d140f
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1595094298460
+method: POST
+modified: 1595095640134
+name: Create
+parameters: []
+parentId: fld_7bffae1f5ee34772a9b452aae4a31425
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/products"

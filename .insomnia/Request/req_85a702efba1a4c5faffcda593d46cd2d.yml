@@ -1,0 +1,28 @@
+_id: req_85a702efba1a4c5faffcda593d46cd2d
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTQ2OTg2MH0.cZK5mULAkxhkTwv7mi8BFRvcoqBBGa4ZmGt_xYz52IQ
+  type: bearer
+body:
+  mimeType: application/json
+  text: ""
+created: 1591664374435
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878936040.5
+method: DELETE
+modified: 1593221027284
+name: Delete
+parameters: []
+parentId: fld_713d2d8cd53b4b0e82b9b90b2a5497ec
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/telephone/1/1"

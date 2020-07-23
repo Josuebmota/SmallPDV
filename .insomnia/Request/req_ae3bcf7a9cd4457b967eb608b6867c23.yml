@@ -1,0 +1,33 @@
+_id: req_ae3bcf7a9cd4457b967eb608b6867c23
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5MTQ2NjQ4MX0.KaoXkFQpPB0f8ZaGMWH5yZuit8M2Wp109G1ru9u7_bQ
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "Angelica",
+    	"email": "Angelica@gmail.com",
+    	"cpf": "558.575.782-35"
+    }
+created: 1591470101843
+description: ""
+headers:
+  - id: pair_2623334fb9d24b55ac463c06da378fa0
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590878936053
+method: PUT
+modified: 1593217774752
+name: Update
+parameters: []
+parentId: fld_84762068249b40b2a876376fe1a9b2a1
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/client/3"

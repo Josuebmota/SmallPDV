@@ -1,0 +1,29 @@
+_id: req_46ee14a763974563ad4df5852832fc0b
+authentication: {}
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email":"josuebatistam1@gmail.com"
+    }
+created: 1590973884981
+description: ""
+headers:
+  - id: pair_aad00c0a407949268ed0ea1658a15b8b
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590973884981
+method: POST
+modified: 1591462492443
+name: ForgotPassword
+parameters: []
+parentId: fld_c76d95e1e3e5417fbb9350dcc9fe390b
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/forgot"

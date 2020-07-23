@@ -1,0 +1,30 @@
+_id: req_ea125da20462438194e6472d1401c1e9
+authentication: {}
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email": "joanderson@gmail.com",
+    	"password": "coxinha"
+    }
+created: 1590970121508
+description: ""
+headers:
+  - id: pair_f96d2267affc4e14a0c5cdc698d4023a
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1590973885031
+method: POST
+modified: 1593140593591
+name: login
+parameters: []
+parentId: fld_c76d95e1e3e5417fbb9350dcc9fe390b
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url  }}/session"
