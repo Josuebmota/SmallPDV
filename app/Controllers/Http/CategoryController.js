@@ -3,8 +3,6 @@ const Employee = use('App/Models/Employee');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Category = use('App/Models/Category');
 
-const Employee = use('App/Models/Employee');
-
 class CategoryController {
   async index({ response }) {
     const categories = await Category.query().fetch();
@@ -54,7 +52,6 @@ class CategoryController {
     return response.status(200).json(category);
   }
 
-
   /**
    * Delete a category with id.
    * DELETE categories/:id
@@ -64,7 +61,6 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response, auth }) {
-
     await auth.check();
 
     const isAdm = await Employee.findBy('user_id', auth.user.id);
