@@ -1,5 +1,3 @@
-'use strict';
-
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema');
 
@@ -16,7 +14,6 @@ class CategorySchema extends Schema {
         .inTable('categories')
         .onDelete('CASCADE');
       table.integer('child_count');
-      table.string('image');
       table.timestamps();
     });
   }

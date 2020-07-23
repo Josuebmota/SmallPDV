@@ -10,7 +10,7 @@ class TelephoneController {
     const useExists = await User.findByOrFail('id', params.id);
 
     if (!useExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const newTelephone = await Telephone.create({
@@ -27,7 +27,7 @@ class TelephoneController {
     const useExists = await User.findByOrFail('id', params.id);
 
     if (!useExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const telephone = await Telephone.query()
@@ -35,7 +35,9 @@ class TelephoneController {
       .fetch();
 
     if (!telephone) {
-      return response.status(404).json('No telephones');
+      return response
+        .status(200)
+        .json({ message: 'Não existe telefones para esse usuário' });
     }
 
     return telephone;
@@ -47,19 +49,19 @@ class TelephoneController {
     const useExists = await User.findByOrFail('id', params.id);
 
     if (!useExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const telephone = await Telephone.findByOrFail('id', params.telephone_id);
 
     if (!telephone) {
-      return response.status(404).json({ erro: 'This phone does not exist' });
+      return response.status(404).json({ message: 'Telefone não encontrado' });
     }
 
     if (telephone.user_id !== useExists.id) {
       return response
         .status(404)
-        .json({ erro: 'This address does not belong to this user' });
+        .json({ message: 'Esse telefone não pertece a esse usuário' });
     }
 
     return telephone;
@@ -71,19 +73,19 @@ class TelephoneController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const phone = await Telephone.findByOrFail('id', params.telephone_id);
 
     if (!phone) {
-      return response.status(404).json({ erro: 'This phone does not exist' });
+      return response.status(404).json({ message: 'Telefone não encontrado' });
     }
 
     if (phone.user_id !== userExists.id) {
       return response
         .status(404)
-        .json({ erro: 'This phone does not belong to this user' });
+        .json({ message: 'Esse telefone não pertece a esse usuário' });
     }
 
     phone.merge(request.all());
@@ -99,24 +101,24 @@ class TelephoneController {
     const userExists = await User.findByOrFail('id', params.id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const telephone = await Telephone.findByOrFail('id', params.telephone_id);
 
     if (!telephone) {
-      return response.status(404).json({ erro: 'This phone does not exist' });
+      return response.status(404).json({ message: 'Telefone não encontrado' });
     }
 
     if (telephone.user_id !== userExists.id) {
       return response
         .status(404)
-        .json({ erro: 'This phone does not belong to this user' });
+        .json({ message: 'Esse telefone não pertence a esse usuário' });
     }
 
     await telephone.delete();
 
-    return response.status(200).json({ deleted: 'Deleted phone' });
+    return response.status(200).json({ message: 'Phone deletado' });
   }
 }
 

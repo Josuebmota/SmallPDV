@@ -1,27 +1,25 @@
-'use strict';
-
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema');
 
-class StockActionsSchema extends Schema {
+class StockSchema extends Schema {
   up() {
-    this.create('stock_actions', (table) => {
+    this.create('stocks', (table) => {
       table.increments();
-      table.string('type').notNullable();
       table
-        .integer('stock_id')
+        .integer('id_product')
         .unsigned()
         .references('id')
-        .inTable('stocks')
+        .inTable('products')
         .onDelete('CASCADE');
       table.integer('amount').unsigned();
+      table.integer('minimum_stock').unsigned();
       table.timestamps();
     });
   }
 
   down() {
-    this.drop('stock_actions');
+    this.drop('stocks');
   }
 }
 
-module.exports = StockActionsSchema;
+module.exports = StockSchema;

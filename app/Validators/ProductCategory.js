@@ -1,15 +1,15 @@
-const { rule } = use('Validator');
-
 class ProductCategory {
   get rules() {
     return {
-      id_product:'required',
-      id_category:'required',
+      id_product: 'required',
+      id_category: 'required',
     };
   }
 
   get messages() {
     return {
+      'id_product.required': 'O id do produto é obrigatório',
+      'id_category.required': 'O id da categoria é obrigatório',
     };
   }
 
@@ -18,4 +18,4 @@ class ProductCategory {
   }
 }
 
-module.exports = Cliente;
+module.exports = ProductCategory;

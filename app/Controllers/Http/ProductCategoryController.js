@@ -1,94 +1,66 @@
-'use strict'
-
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const ProductCategory = use('App/Models/ProductCategory');
 
 /**
  * Resourceful controller for interacting with productcategories
  */
 class ProductCategoryController {
-  /**
-   * Show a list of all productcategories.
-   * GET productcategories
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+  async store({ request, params, response }) {
+    const { categories } = await request.get().categories;
+    const product_id = params.id;
 
+    const productCategories = categories
+      .split(',')
+      .map((category) => category.trim());
+
+    const categoriasExists = await ProductCategory.query()
+      .where('product_id', product_id)
+      .whereIn(productCategories)
+      .fetch();
+
+    if (Object.entries(categoriasExists).length !== 0) {
+      return response
+        .status(400)
+        .json({ message: 'Alguns desses items já foram cadastrados' });
+    }
+
+    const categorySelect = productCategories.map((category_id) => {
+      return {
+        product_id,
+        category_id,
+      };
+    });
+
+    await ProductCategory.createMany(categorySelect);
+
+    return response
+      .status(200)
+      .json({ message: 'Novas categorias cadastradas para aquele produto' });
   }
 
-  /**
-   * Render a form to be used for creating a new productcategory.
-   * GET productcategories/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
+  async destroy({ params, request, response }) {
+    const { categories } = await request.get().categories;
+    const product_id = params.id;
 
-  /**
-   * Create/save a new productcategory.
-   * POST productcategories
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store ({ request, response }) {
-  }
+    const productCategories = categories
+      .split(',')
+      .map((category) => category.trim())
+      .map((category_id) => {
+        return {
+          product_id,
+          category_id,
+        };
+      });
 
-  /**
-   * Display a single productcategory.
-   * GET productcategories/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
-  }
+    await ProductCategory.query()
+      .where('product_id', product_id)
+      .whereIn(productCategories)
+      .delete();
 
-  /**
-   * Render a form to update an existing productcategory.
-   * GET productcategories/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
-  /**
-   * Update productcategory details.
-   * PUT or PATCH productcategories/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
-  }
-
-  /**
-   * Delete a productcategory with id.
-   * DELETE productcategories/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
+    return response.status(200).send({
+      message: 'Categoria atribuida a este produto foi excluída com sucesso.',
+    });
   }
 }
 
-module.exports = ProductCategoryController
+module.exports = ProductCategoryController;

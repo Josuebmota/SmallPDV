@@ -11,7 +11,7 @@ class ResetPasswordController {
     if (isBefore(parseISO(usertoken.created_at), subHours(new Date(), 2))) {
       return response
         .status(400)
-        .json({ error: 'Data inspirou, por favor tente denevo' });
+        .json({ error: 'Data inspirou, por favor tente novamente' });
     }
 
     const user = await usertoken.user().fetch();
