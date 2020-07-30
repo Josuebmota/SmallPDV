@@ -14,16 +14,16 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-// Adm
+// RouteAdm first user
 Route.post('/adm', 'AdmController.store').validator('Employee');
 
-// Autentificação
+// Auth
 Route.post('/session', 'SessionController.login').validator('Session');
 Route.post('/forgot', 'ForgotPasswordController.forgot').validator('Forgot');
 Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
 
 Route.group(() => {
-  // Empregados
+  // Employee
   Route.post('employee', 'EmployeeController.store').validator('Employee');
   Route.put('employee/:id', 'EmployeeController.update').validator(
     'UserUpdate'
@@ -34,10 +34,10 @@ Route.group(() => {
     'destroy',
   ]);
 
-  // Perfil Empregado
+  // ProfileEmployee
   Route.get('profile', 'ProfileEmployeeController.index');
 
-  // Clientes Controller
+  // Client
   Route.post('client', 'ClientController.store').validator('Client');
   Route.put('client/:id', 'ClientController.update').validator('UserUpdate');
   Route.resource('client', 'ClientController').only([
@@ -46,7 +46,7 @@ Route.group(() => {
     'destroy',
   ]);
 
-  // Endereços
+  // Address
   Route.post('address/:id', 'AddressController.store').validator('Address');
   Route.put('address/:id/:address_id', 'AddressController.update').validator(
     'Address'
@@ -55,7 +55,7 @@ Route.group(() => {
   Route.get('address/:id/:address_id', 'AddressController.show');
   Route.delete('address/:id/:address_id', 'AddressController.destroy');
 
-  // Telefones/Celular
+  // Telephones/Cellphone
   Route.post('telephone/:id', 'TelephoneController.store').validator(
     'Telephone'
   );
@@ -66,21 +66,24 @@ Route.group(() => {
   Route.get('telephone/:id', 'TelephoneController.index');
   Route.get('telephone/:id/:telephone_id', 'TelephoneController.show');
   Route.delete('telephone/:id/:telephone_id', 'TelephoneController.destroy');
-}).middleware('auth');
 
-// products
-Route.group(() => {
+  // Product
   Route.resource('products', 'ProductController').apiOnly().except(['store']);
   Route.post('products', 'ProductController.store').validator('Product');
-  // Route.get('products/code/:code', 'ProductController.showByCode');
-});
 
-// categories
-Route.group(() => {
-  Route.resource('categories', 'CategoryController').apiOnly().except(['index']);
+  // Categories
+  Route.resource('categories', 'CategoryController').apiOnly();
+
+  // Stock
+  Route.resource('stock', 'StockController')
+    .apiOnly()
+    .except(['store', 'destroy']);
+
+  // Order
+  Route.resource('order', 'OrderController')
+    .apiOnly()
+    .except(['update', 'destroy']);
+
+  // OrderClient
+  Route.get('orderclient', 'OrderClientController.show').validator('Product');
 }).middleware('auth');
-
-Route.get('categories', 'CategoryController.index');
-
-//stock
-Route.group(()=>{});

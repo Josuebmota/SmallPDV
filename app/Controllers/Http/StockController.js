@@ -1,17 +1,28 @@
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Stock = use('App/Models/Stock');
+
 class StockController {
-  async index({ request, response, view }) {}
+  async index({ response }) {
+    const stock = await Stock.all();
+    return response.status(200).json(stock);
+  }
 
-  async create({ request, response, view }) {}
+  async show({ params, response }) {
+    const stock = await Stock.query()
+      .with('products')
+      .where('id', params)
+      .fetch();
 
-  async store({ request, response }) {}
+    return response.status(200).json(stock);
+  }
 
-  async show({ params, request, response, view }) {}
+  async update({ params, request, response }) {
+    const stock = await Stock.findByOrFail('id', params);
+    const data = request.all();
+    stock.merge(data);
 
-  async edit({ params, request, response, view }) {}
-
-  async update({ params, request, response }) {}
-
-  async destroy({ params, request, response }) {}
+    return response.status(204);
+  }
 }
 
 module.exports = StockController;

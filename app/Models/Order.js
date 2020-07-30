@@ -11,12 +11,6 @@ class Order extends Model {
       'App/Models/OrderProduct'
     );
   }
-
-  paymethods() {
-    return this.belongsToMany('App/Models/Paymethod').pivotModel(
-      'App/Models/OrderPayment'
-    );
-  }
 }
 
 module.exports = Order;

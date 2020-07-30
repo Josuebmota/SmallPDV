@@ -5,6 +5,7 @@ const Product = use('App/Models/Product');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const ProductCategory = use('App/Models/ProductCategory');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Stock = use('App/Models/Stock');
 
 const Database = use('Database');
 
@@ -33,26 +34,20 @@ class ProductController {
   }
 
   async store({ request, response }) {
-    const data = request.only([
-      'name',
-      'bar_code',
-      'internal_code',
-      'description',
-      'cost_price',
-      'sell_price',
-      'to_sell',
-      'show_online',
-      'unity',
-      'fraction_sell',
-      'stock_control',
+    const dataProduct = request.except([
+      'amount',
+      'minimum_stock',
+      'categories',
     ]);
+    const dataStock = await request.only(['amount', 'minimum_stock']);
+    const { categories } = await request.only('categories');
 
     const trx = await Database.beginTransaction();
 
-    const product = await Product.create(data, trx);
-    const { categories } = await request.only('categories');
+    const product = await Product.create(dataProduct, trx);
 
     const product_id = product.id;
+
     const productCategories = categories
       .split(',')
       .map((category) => category.trim())
@@ -64,6 +59,15 @@ class ProductController {
       });
 
     await ProductCategory.createMany(productCategories, trx);
+
+    await Stock.create(
+      {
+        product_id,
+        dataStock,
+      },
+      trx
+    );
+
     await trx.commit();
 
     response.status(201).send({ product, productCategories });
@@ -96,7 +100,7 @@ class ProductController {
   }
 
   async destroy({ params, response, auth }) {
-    const product = await Product.findBy('id', params.id);
+    const product = await Product.findByOrFail('id', params.id);
 
     if (!product)
       return response.status(404).send({ message: 'Produto não encontrado' });

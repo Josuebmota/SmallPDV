@@ -3,7 +3,7 @@ const Schema = use('Schema');
 
 class OrderProductSchema extends Schema {
   up() {
-    this.table('order_products', (table) => {
+    this.create('order_products', (table) => {
       table.increments();
       table
         .integer('order_id')

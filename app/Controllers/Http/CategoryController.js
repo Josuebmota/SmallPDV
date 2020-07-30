@@ -9,16 +9,7 @@ class CategoryController {
     response.status(200).json(categories);
   }
 
-  /**
-   * Create/save a new category.
-   * POST categories
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-
-  async store({ request, response }) {
+  async store({ request, response, auth }) {
     await auth.check();
 
     const isAdm = await Employee.findBy('user_id', auth.user.id);
@@ -36,7 +27,7 @@ class CategoryController {
     return category;
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request, response, auth }) {
     await auth.check();
 
     const isAdm = await Employee.findBy('user_id', auth.user.id);
@@ -52,14 +43,6 @@ class CategoryController {
     return response.status(200).json(category);
   }
 
-  /**
-   * Delete a category with id.
-   * DELETE categories/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async destroy({ params, response, auth }) {
     await auth.check();
 

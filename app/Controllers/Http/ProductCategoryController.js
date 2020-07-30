@@ -1,9 +1,6 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const ProductCategory = use('App/Models/ProductCategory');
 
-/**
- * Resourceful controller for interacting with productcategories
- */
 class ProductCategoryController {
   async store({ request, params, response }) {
     const { categories } = await request.get().categories;
