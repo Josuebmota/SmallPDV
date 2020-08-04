@@ -1,0 +1,21 @@
+_id: req_6939276bd4de4a1aabb0e2838a8ea8eb
+authentication: {}
+body: {}
+created: 1596155352094
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596150235890.5
+method: DELETE
+modified: 1596499668435
+name: Destroy
+parameters: []
+parentId: fld_a5407bfedf684bfba4af745810a9a051
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock/1"

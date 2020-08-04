@@ -1,0 +1,54 @@
+_id: req_64dc7cc357f04e46bc5ac178a4cb5611
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjUwMDIyNX0.DmZ-gVEXj4cBf0L8qOBLnpswOhT8loSJecWlMt0bgB0
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"client_id":1,
+    	"total": 203.42,
+    	"products":[
+    		{
+    			"product_id":1,
+    			"amount":1
+    		},
+    		{
+    			"product_id":7,
+    			"amount":2
+    		},
+    		{
+    			"product_id":11,
+    			"amount":3
+    		},
+    		{
+    			"product_id":5,
+    			"amount":1
+    		},
+    		{
+    			"product_id":200,
+    			"amount":1
+    		}
+    	]
+    }
+created: 1596155384747
+description: ""
+headers:
+  - id: pair_057de45f68344ed793f65e6c0af14c53
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1596155408014
+method: POST
+modified: 1596500991459
+name: Store
+parameters: []
+parentId: fld_86ba2ee85d9e4623a816b234debcc286
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/order"

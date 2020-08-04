@@ -122,7 +122,7 @@ class AddressController {
 
     address.merge(request.all());
     await address.save();
-    return response.status(201).json(address);
+    return response.status(204).json();
   }
 
   async destroy({ params, response, auth }) {
@@ -147,9 +147,7 @@ class AddressController {
 
     await addresss.delete();
 
-    return response
-      .status(200)
-      .json({ message: 'Endereço deletado com sucesso' });
+    return response.status(204).json();
   }
 }
 

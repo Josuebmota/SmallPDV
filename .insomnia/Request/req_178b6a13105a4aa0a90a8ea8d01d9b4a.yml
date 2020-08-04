@@ -1,0 +1,21 @@
+_id: req_178b6a13105a4aa0a90a8ea8d01d9b4a
+authentication: {}
+body: {}
+created: 1595971190832
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1595971215324
+method: GET
+modified: 1596500156464
+name: Show
+parameters: []
+parentId: fld_61d1f884311d45a9bf6632ccbd8388ae
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/category/1"

@@ -5,15 +5,15 @@ created: 1595094344706
 description: ""
 headers: []
 isPrivate: false
-metaSortKey: -1593281243520
+metaSortKey: -1594641034725
 method: GET
-modified: 1595380517430
+modified: 1596499727189
 name: index
 parameters:
   - description: ""
     id: pair_62f80f44f12e42ffac93a2d416200df3
     name: page
-    value: "5"
+    value: "11"
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
 settingDisableRenderRequestBody: false
 settingEncodeUrl: true
@@ -22,4 +22,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products"
+url: "{{ url }}/product"

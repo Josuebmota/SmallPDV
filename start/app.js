@@ -19,6 +19,7 @@ const providers = [
   '@adonisjs/framework/providers/ViewProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
   'adonis-jsonable/providers/JsonableProvider',
+  'adonis-swagger/providers/SwaggerProvider',
 ];
 
 /*

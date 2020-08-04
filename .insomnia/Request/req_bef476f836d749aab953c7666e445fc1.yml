@@ -26,7 +26,7 @@ headers:
 isPrivate: false
 metaSortKey: -1594187770990
 method: PUT
-modified: 1595111590454
+modified: 1596499732422
 name: Update
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
@@ -37,4 +37,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products/1"
+url: "{{ url }}/product/1"

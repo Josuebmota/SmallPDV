@@ -7,7 +7,7 @@ headers: []
 isPrivate: false
 metaSortKey: -1593734507255
 method: DELETE
-modified: 1595111633625
+modified: 1596499734362
 name: Delete
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
@@ -18,4 +18,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products/1"
+url: "{{ url }}/product/1"

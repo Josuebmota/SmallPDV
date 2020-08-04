@@ -1,0 +1,30 @@
+_id: req_ead274d643fc4457ba840e4336a27ac7
+authentication: {}
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"amount": 34,
+    	"minimum_stock": 10
+    }
+created: 1596145136736
+description: ""
+headers:
+  - id: pair_fa07e9cae3394f05ba28e473902f8352
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1596145113828
+method: PUT
+modified: 1596484084232
+name: Update
+parameters: []
+parentId: fld_a3ff245b49094423808f888ed018e078
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock/1"

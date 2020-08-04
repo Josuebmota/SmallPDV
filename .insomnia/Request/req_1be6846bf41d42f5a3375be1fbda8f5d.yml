@@ -1,0 +1,21 @@
+_id: req_1be6846bf41d42f5a3375be1fbda8f5d
+authentication: {}
+body: {}
+created: 1596155548680
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596155555503
+method: GET
+modified: 1596473112221
+name: Index
+parameters: []
+parentId: fld_1fffea166bd54dfd881d742da0a9ff42
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/orderclient/1"

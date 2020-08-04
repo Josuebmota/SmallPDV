@@ -101,7 +101,7 @@ class ClientController {
       await employee.save();
     }
 
-    return response.status(201).json({ message: 'Cliente Atualizado' });
+    return response.status(204).json();
   }
 
   async destroy({ params, response, auth }) {
@@ -130,7 +130,7 @@ class ClientController {
 
     await client.delete();
 
-    return response.status(200).json({ message: 'Cliente deletado' });
+    return response.status(204).json();
   }
 }
 

@@ -1,11 +1,18 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const ProductCategory = use('App/Models/ProductCategory');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Employee = use('App/Models/Employee');
 
-/**
- * Resourceful controller for interacting with productcategories
- */
 class ProductCategoryController {
-  async store({ request, params, response }) {
+  async store({ request, params, response, auth }) {
+    await auth.check();
+    const admExists = await Employee.findByOrFail('user_id', auth.user.id);
+
+    if (admExists.type !== 'ADM') {
+      return response.status(401).json({
+        message: 'Você não tem autorização para efetuar essa ação',
+      });
+    }
     const { categories } = await request.get().categories;
     const product_id = params.id;
 
@@ -38,7 +45,17 @@ class ProductCategoryController {
       .json({ message: 'Novas categorias cadastradas para aquele produto' });
   }
 
-  async destroy({ params, request, response }) {
+  async destroy({ params, request, response, auth }) {
+    await auth.check();
+
+    const admExists = await Employee.findByOrFail('user_id', auth.user.id);
+
+    if (admExists.type !== 'ADM') {
+      return response.status(401).json({
+        message: 'Você não tem autorização para efetuar essa ação',
+      });
+    }
+
     const { categories } = await request.get().categories;
     const product_id = params.id;
 

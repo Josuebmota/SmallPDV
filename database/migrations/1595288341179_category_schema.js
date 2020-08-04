@@ -7,12 +7,6 @@ class CategorySchema extends Schema {
       table.increments();
       table.integer('level').unsigned();
       table.string('name').unique();
-      table
-        .integer('parent_id')
-        .unsigned()
-        .references('id')
-        .inTable('categories')
-        .onDelete('CASCADE');
       table.integer('child_count');
       table.timestamps();
     });

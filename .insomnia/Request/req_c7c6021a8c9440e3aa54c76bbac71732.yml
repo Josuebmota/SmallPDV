@@ -1,0 +1,21 @@
+_id: req_c7c6021a8c9440e3aa54c76bbac71732
+authentication: {}
+body: {}
+created: 1596145131768
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596145131768
+method: GET
+modified: 1596473309321
+name: Show
+parameters: []
+parentId: fld_a3ff245b49094423808f888ed018e078
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock/1"

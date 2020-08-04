@@ -1,0 +1,21 @@
+_id: req_cb0a02a8dbf34530989ddf5c39fd7cf5
+authentication: {}
+body: {}
+created: 1596155339963
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596155339963
+method: POST
+modified: 1596499004855
+name: Store
+parameters: []
+parentId: fld_a5407bfedf684bfba4af745810a9a051
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock/1"

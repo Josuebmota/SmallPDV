@@ -6,7 +6,7 @@ class StockSchema extends Schema {
     this.create('stocks', (table) => {
       table.increments();
       table
-        .integer('id_product')
+        .integer('product_id')
         .unsigned()
         .references('id')
         .inTable('products')
