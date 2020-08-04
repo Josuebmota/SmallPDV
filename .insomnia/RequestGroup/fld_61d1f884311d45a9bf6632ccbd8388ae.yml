@@ -1,0 +1,10 @@
+_id: fld_61d1f884311d45a9bf6632ccbd8388ae
+created: 1595971180519
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1595971180519
+modified: 1595971180519
+name: Categorias
+parentId: fld_986f5a2fbf904f389bc52848f2c36daf
+type: RequestGroup

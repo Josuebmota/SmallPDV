@@ -1,16 +1,16 @@
-_id: req_102146c7db2c424cb2aaa20ca8c703b7
+_id: req_1be6846bf41d42f5a3375be1fbda8f5d
 authentication: {}
 body: {}
-created: 1595111627266
+created: 1596155548680
 description: ""
 headers: []
 isPrivate: false
-metaSortKey: -1593734507255
-method: DELETE
-modified: 1596499734362
-name: Delete
+metaSortKey: -1596155555503
+method: GET
+modified: 1596473112221
+name: Index
 parameters: []
-parentId: fld_7bffae1f5ee34772a9b452aae4a31425
+parentId: fld_1fffea166bd54dfd881d742da0a9ff42
 settingDisableRenderRequestBody: false
 settingEncodeUrl: true
 settingFollowRedirects: global
@@ -18,4 +18,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/product/1"
+url: "{{ url }}/orderclient/1"

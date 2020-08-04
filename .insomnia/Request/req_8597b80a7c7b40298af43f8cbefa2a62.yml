@@ -1,4 +1,4 @@
-_id: req_c25362a4fca24a9b982ad13eed7ae597
+_id: req_8597b80a7c7b40298af43f8cbefa2a62
 authentication:
   type: bearer
 body:
@@ -20,7 +20,7 @@ body:
     	"password": "coxinha",
     	"password_confirmation":"coxinha"
     }
-created: 1591462667940
+created: 1596502107322
 description: >-
   Rota destinada para a criação do primeiro user
 
@@ -36,13 +36,13 @@ headers:
 isPrivate: false
 metaSortKey: -1000000000
 method: POST
-modified: 1596501992739
+modified: 1596502114906
 name: Create
 parameters: []
-parentId: wrk_7c2d9bfd4db3450b8fcb453e37b30e87
+parentId: fld_af92307148df4932a8d94c2ce94292f6
 settingDisableRenderRequestBody: false
 settingEncodeUrl: true
-settingFollowRedirects: on
+settingFollowRedirects: global
 settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true

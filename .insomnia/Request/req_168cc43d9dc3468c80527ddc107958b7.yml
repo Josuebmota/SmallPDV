@@ -5,9 +5,9 @@ created: 1595095112072
 description: ""
 headers: []
 isPrivate: false
-metaSortKey: -1592374716050
+metaSortKey: -1594414402857.5
 method: GET
-modified: 1595095115783
+modified: 1596499730191
 name: Show
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
@@ -18,4 +18,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products/1"
+url: "{{ url }}/product/206"

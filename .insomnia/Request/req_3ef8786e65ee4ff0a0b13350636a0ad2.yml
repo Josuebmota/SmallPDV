@@ -1,0 +1,33 @@
+_id: req_3ef8786e65ee4ff0a0b13350636a0ad2
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjUwMDIyNX0.DmZ-gVEXj4cBf0L8qOBLnpswOhT8loSJecWlMt0bgB0
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"level": 0,
+      "name": "Enlatados",
+      "child_count": null
+    }
+created: 1595971222932
+description: ""
+headers:
+  - id: pair_b32250015d7d42c8b74acb0297cd6b01
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1595971222932
+method: POST
+modified: 1596500238066
+name: Create
+parameters: []
+parentId: fld_61d1f884311d45a9bf6632ccbd8388ae
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/category"
