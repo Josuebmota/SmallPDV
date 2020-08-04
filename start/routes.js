@@ -68,11 +68,19 @@ Route.group(() => {
   Route.delete('telephone/:id/:telephone_id', 'TelephoneController.destroy');
 
   // Product
-  Route.resource('products', 'ProductController').apiOnly().except(['store']);
-  Route.post('products', 'ProductController.store').validator('Product');
+  Route.resource('product', 'ProductController').apiOnly().except(['store']);
+  Route.post('product', 'ProductController.store').validator('Product');
 
   // Categories
-  Route.resource('categories', 'CategoryController').apiOnly();
+  Route.resource('category', 'CategoryController')
+    .apiOnly()
+    .except(['update', 'destroy'])
+    .validator(new Map([[['category.store'], ['Category']]]));
+
+  // ProductCategory
+  Route.resource('productcategory', 'ProductCategoryController')
+    .apiOnly()
+    .except(['index', 'show', 'update']);
 
   // Stock
   Route.resource('stock', 'StockController')
@@ -82,8 +90,11 @@ Route.group(() => {
   // Order
   Route.resource('order', 'OrderController')
     .apiOnly()
-    .except(['update', 'destroy']);
+    .except(['update', 'destroy'])
+    .validator(new Map([[['order.store'], ['Order']]]));
 
   // OrderClient
-  Route.get('orderclient', 'OrderClientController.show').validator('Product');
-}).middleware('auth');
+  Route.get('orderclient/:client_id', 'OrderClientController.index');
+  Route.get('orderclient/:client_id/:order_id', 'OrderClientController.show');
+});
+// .middleware('auth');

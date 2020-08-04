@@ -14,25 +14,6 @@ Factory.blueprint('App/Models/User', (faker, i, data = {}) => {
   return {
     nome: faker.name(),
     email: faker.email(),
-    cpf: faker.cpf(),
-    celular: faker.phone({ country: 'br', mobile: true }),
-    telefone: faker.phone({ country: 'br' }),
-    cep: faker.zip({ plusfour: true }),
-    logradouro: 'Rua França',
-    numero: '321',
-    bairro: 'Maraponga',
-    cidade: 'Fortaleza',
-    estado: 'CE',
-    tipo: 'Administrador',
-    password: faker.string(),
-    ...data,
-  };
-});
-
-Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
-  return {
-    type: data.type || 'refreshtoken',
-    token: faker.string({ length: 20 }),
     ...data,
   };
 });

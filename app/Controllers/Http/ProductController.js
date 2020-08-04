@@ -28,6 +28,7 @@ class ProductController {
       .with('categories', (category) => {
         category.select('name');
       })
+      .with('stocks')
       .paginate(page);
 
     response.status(200).send(products);
@@ -63,7 +64,7 @@ class ProductController {
     await Stock.create(
       {
         product_id,
-        dataStock,
+        ...dataStock,
       },
       trx
     );
@@ -76,6 +77,7 @@ class ProductController {
   async show({ params, response }) {
     const product = await Product.query()
       .with('categories')
+      .with('stocks')
       .where('products.id', params.id)
       .fetch();
 
@@ -96,7 +98,7 @@ class ProductController {
     product.merge(data);
     await product.save();
 
-    return response.status(200).json(product);
+    return response.status(204).json();
   }
 
   async destroy({ params, response, auth }) {
@@ -112,9 +114,7 @@ class ProductController {
     }
 
     await product.delete(product);
-    return response
-      .status(200)
-      .send({ message: 'Produto excluído com sucesso.' });
+    return response.status(204).json();
   }
 }
 

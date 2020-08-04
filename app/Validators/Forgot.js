@@ -12,8 +12,12 @@ class Forgot {
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

@@ -2,9 +2,25 @@
 const Order = use('App/Models/Order');
 
 class OrderClientController {
-  async show({ request, response }) {
-    const client = request.get().id;
-    const orderClient = await Order.findByOrFail('id', client);
+  async index({ response, params }) {
+    const orderClient = await Order.query()
+      .with('products', (product) => {
+        product.select('id', 'name', 'sell_price', 'image');
+      })
+      .where('client_id', params.client_id)
+      .fetch();
+
+    return response.status(200).json(orderClient);
+  }
+
+  async show({ response, params }) {
+    const orderClient = await Order.query()
+      .with('products', (product) => {
+        product.select('id', 'name', 'sell_price', 'image');
+      })
+      .where('id', params.order_id)
+      .where('client_id', params.client_id)
+      .first();
 
     return response.status(200).json(orderClient);
   }

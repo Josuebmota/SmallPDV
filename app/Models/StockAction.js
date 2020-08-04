@@ -3,7 +3,7 @@ const Model = use('Model');
 
 class StockAction extends Model {
   stocks() {
-    return this.belongsTo('App/Models/Product');
+    return this.belongsTo('App/Models/Stock');
   }
 }
 

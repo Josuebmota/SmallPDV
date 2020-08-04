@@ -10,9 +10,11 @@ class OrderSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('clients')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-      table.decimal('total');
+        .onDelete('CASCADE')
+        .Nullable();
+      table.decimal('total').notNullable().unsigned();
+      table.decimal('cost').notNullable().unsigned();
+      table.decimal('payback').notNullable().unsigned();
       table.timestamps();
     });
   }

@@ -19,7 +19,7 @@ class Employee {
       ],
       cep: [rule('regex', /^\d{5}[-]\d{3}$/)],
       type: 'required',
-      password: 'required|confirmed',
+      password: 'required|confirmed|min:6',
     };
   }
 
@@ -39,6 +39,7 @@ class Employee {
       'cep.regex': 'Invalid cep, xxxx-xxx',
       'password.required': 'Password is required',
       'password.confirmed': 'Password needs to be confirmed',
+      'password.min': 'Password precisa ser maior que 6 caracteres',
     };
   }
 

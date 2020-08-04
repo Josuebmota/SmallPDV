@@ -2,7 +2,7 @@
 const Model = use('Model');
 
 class Order extends Model {
-  client() {
+  clients() {
     return this.belongsTo('App/Models/Client');
   }
 

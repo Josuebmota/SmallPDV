@@ -1,9 +1,7 @@
-/* eslint-disable eqeqeq */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Employee = use('App/Models/Employee');
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 
 const Database = use('Database');
 
@@ -112,7 +110,7 @@ class EmployeeController {
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
-    if (admExists.type === 'ADM' || admExists.user_id == params.id) {
+    if (admExists.type === 'ADM' || admExists.user_id === params.id) {
       // Config User
       const user = await User.findOrFail(params.id);
       const dataUser = request.only(['name', 'email', 'cpf', 'password']);
@@ -127,7 +125,7 @@ class EmployeeController {
         await employee.save();
       }
 
-      return response.status(201).json({ updated: 'Cliente Atualizado' });
+      return response.status(204).json();
     }
 
     return response.status(401).json({
@@ -151,12 +149,12 @@ class EmployeeController {
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
-    if (admExists.type === 'ADM' || admExists.user_id == params.id) {
+    if (admExists.type === 'ADM' || admExists.user_id === params.id) {
       const employee = await User.findOrFail(params.id);
 
       await employee.delete();
 
-      return response.status(200).json({ message: 'Empregado deletado' });
+      return response.status(204).json();
     }
     return response.status(401).json({
       message: 'Você não tem autorização para deletar empregados',

@@ -13,6 +13,10 @@ class Product extends Model {
       'App/Models/OrderProduct'
     );
   }
+
+  stocks() {
+    return this.hasOne('App/Models/Stock');
+  }
 }
 
 module.exports = Product;

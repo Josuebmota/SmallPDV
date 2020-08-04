@@ -7,10 +7,8 @@ class Product {
       cost_price: 'required',
       sell_price: 'required',
       to_sell: 'required',
-      unique: 'required',
       show_online: 'required',
       fraction_sell: 'required',
-      stock_control: 'required',
     };
   }
 
@@ -27,14 +25,16 @@ class Product {
       'sell_price.required': 'Preço da venda é obrigatório.',
       'to_sell.required': 'Campo venda é obrigatório.',
       'show_online.required': 'Mostrar online é obrigatório.',
-      'unique.required': 'Insira uma unidade.',
       'fraction_sell.required': 'Venda de fração é obrigatório.',
-      'stock_control.required': 'Controle de estoque é obrigatório.',
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

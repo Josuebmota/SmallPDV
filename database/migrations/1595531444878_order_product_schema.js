@@ -19,7 +19,6 @@ class OrderProductSchema extends Schema {
         .inTable('products')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      table.decimal('amount');
       table.timestamps();
     });
   }

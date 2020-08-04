@@ -92,7 +92,7 @@ class TelephoneController {
 
     await phone.save();
 
-    return response.status(204);
+    return response.status(204).json();
   }
 
   async destroy({ params, response, auth }) {
@@ -118,7 +118,7 @@ class TelephoneController {
 
     await telephone.delete();
 
-    return response.status(204);
+    return response.status(204).json();
   }
 }
 
