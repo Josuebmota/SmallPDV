@@ -14,7 +14,7 @@ headers:
 isPrivate: false
 metaSortKey: -1590878936128
 method: GET
-modified: 1595971272800
+modified: 1596636254915
 name: Show
 parameters: []
 parentId: fld_713d2d8cd53b4b0e82b9b90b2a5497ec
@@ -25,4 +25,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url  }}/telephone/1/4"
+url: "{{ url  }}/telephone/2/1"

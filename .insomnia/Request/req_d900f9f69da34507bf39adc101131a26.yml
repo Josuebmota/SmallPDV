@@ -14,7 +14,7 @@ headers:
 isPrivate: false
 metaSortKey: -1590878936078
 method: GET
-modified: 1596221184143
+modified: 1596657441191
 name: Index
 parameters: []
 parentId: fld_d6cbe7ee22d24d9ebc9cd6d2ac6ca4eb
@@ -25,4 +25,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url  }}/address/1"
+url: "{{ url }}/address/1"

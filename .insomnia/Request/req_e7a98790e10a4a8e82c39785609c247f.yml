@@ -1,5 +1,7 @@
 _id: req_e7a98790e10a4a8e82c39785609c247f
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body: {}
 created: 1596155402568
 description: ""
@@ -7,7 +9,7 @@ headers: []
 isPrivate: false
 metaSortKey: -1596155407989
 method: GET
-modified: 1596473110597
+modified: 1596650652019
 name: Index
 parameters: []
 parentId: fld_86ba2ee85d9e4623a816b234debcc286

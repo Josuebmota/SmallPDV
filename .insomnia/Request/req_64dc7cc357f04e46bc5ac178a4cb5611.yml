@@ -6,7 +6,6 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"client_id":1,
     	"total": 203.42,
     	"products":[
     		{
@@ -40,7 +39,7 @@ headers:
 isPrivate: false
 metaSortKey: -1596155408014
 method: POST
-modified: 1596500991459
+modified: 1596650669356
 name: Store
 parameters: []
 parentId: fld_86ba2ee85d9e4623a816b234debcc286

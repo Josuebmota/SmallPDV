@@ -7,11 +7,13 @@ body:
   text: |-
     {
     	"cep":"60710-730",
-    	"street":"França",
+    	"street":"Condado",
     	"number":"7878",
-    	"neighborhood":"cosco",
-    	"city":"fortaleza",
-    	"state":"CE"
+    	"complement": "Toca 3",
+    	"description": "Perto da Vila Bre",
+    	"neighborhood":"Hobbits",
+    	"city":"Terra-Media",
+    	"state":"EL"
     }
 created: 1591662963643
 description: ""
@@ -22,7 +24,7 @@ headers:
 isPrivate: false
 metaSortKey: -1590878936053
 method: PUT
-modified: 1596221185274
+modified: 1596633369726
 name: Update
 parameters: []
 parentId: fld_d6cbe7ee22d24d9ebc9cd6d2ac6ca4eb
@@ -33,4 +35,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url  }}/address/1/5"
+url: "{{ url  }}/address/1/1"

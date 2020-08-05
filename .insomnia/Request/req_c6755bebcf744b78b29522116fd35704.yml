@@ -9,6 +9,8 @@ body:
     	"cep":"60710-790",
     	"street":"Rua Pegasus",
     	"number":"7878",
+    	"complement": "Casa A",
+    	"description": "Perto da Disney",
     	"neighborhood":"Alto Alegre",
     	"city":"Limbo",
     	"state":"CE"
@@ -22,7 +24,7 @@ headers:
 isPrivate: false
 metaSortKey: -1590878936090.5
 method: POST
-modified: 1596221180905
+modified: 1596633242245
 name: Create
 parameters: []
 parentId: fld_d6cbe7ee22d24d9ebc9cd6d2ac6ca4eb

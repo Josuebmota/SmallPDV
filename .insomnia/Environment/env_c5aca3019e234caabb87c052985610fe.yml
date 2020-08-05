@@ -2,13 +2,13 @@ _id: env_c5aca3019e234caabb87c052985610fe
 color: "#e74ee2"
 created: 1591842745080
 data:
-  url: http://pegasusti.herokuapp.com
+  url: http://pegasusti.herokuapp.com/api
 dataPropertyOrder:
   "&":
     - url
 isPrivate: false
 metaSortKey: 1
-modified: 1595463575155
+modified: 1596650601419
 name: Homologação
 parentId: env_715c7198f172378734dc266c34950bab6fb599e5
 type: Environment

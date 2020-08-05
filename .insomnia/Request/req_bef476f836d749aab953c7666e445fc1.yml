@@ -1,5 +1,7 @@
 _id: req_bef476f836d749aab953c7666e445fc1
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body:
   mimeType: application/json
   text: >-
@@ -10,12 +12,9 @@ body:
     		"description": "at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat",
     		"cost_price": 45.7,
     		"sell_price": 46.62,
-    	"to_sell": 0,
+    		"to_sell": 0,
     		"show_online": 1,
-    		"unity": null,
-    		"fraction_sell": 1,
-    		"stock_control": 0,
-    		"categories": "1,8,99"
+    		"fraction_sell": 1
     }
 created: 1595110923037
 description: ""
@@ -26,7 +25,7 @@ headers:
 isPrivate: false
 metaSortKey: -1594187770990
 method: PUT
-modified: 1596499732422
+modified: 1596640457214
 name: Update
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425

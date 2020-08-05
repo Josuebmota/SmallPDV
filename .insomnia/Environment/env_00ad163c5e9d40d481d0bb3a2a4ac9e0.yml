@@ -2,13 +2,13 @@ _id: env_00ad163c5e9d40d481d0bb3a2a4ac9e0
 color: "#f0e844"
 created: 1591842820786
 data:
-  url: http://localhost:3333
+  url: http://localhost:3333/api
 dataPropertyOrder:
   "&":
     - url
 isPrivate: false
 metaSortKey: 0
-modified: 1596328292184
+modified: 1596650569130
 name: Desenvolvendo
 parentId: env_715c7198f172378734dc266c34950bab6fb599e5
 type: Environment
