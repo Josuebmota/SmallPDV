@@ -66,12 +66,15 @@ Nessa rota, estará documentado o que cada função de um determinado controller
 
 ### Regras na organização de atividades
 É importante seguir essas diretrizes para deixa as ativiades bem explícitas.
-- Criação de Branchs = (atividade/nome-da-atividade), exemplo.
+- Criação de Branchs = (atividade/nome-da-atividade), exemplo:
+```
 		feature/order-payment
 		bug/erro-products
-
-- Commits = (Nome da branch: atividade feita), exemplo.
+```
+- Commits = (Nome da branch: atividade feita), exemplo:
+```
 		feature/order-payment: Create Model Controller
+```
 
 - Não se esqueça de criar as rotas no insomnia, implementar a documentação no swagger e atualizar o modelo de entidade e relacionamento, caso necessário.
 
