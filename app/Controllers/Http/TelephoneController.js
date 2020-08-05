@@ -7,14 +7,14 @@ class TelephoneController {
   async store({ request, response, params, auth }) {
     await auth.check();
 
-    const useExists = await User.findByOrFail('id', params.id);
+    const useExists = await User.findByOrFail('id', params.user_id);
 
     if (!useExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const newTelephone = await Telephone.create({
-      user_id: params.id,
+      user_id: params.user_id,
       ...request.all(),
     });
 
@@ -24,14 +24,14 @@ class TelephoneController {
   async index({ params, response, auth }) {
     await auth.check();
 
-    const useExists = await User.findByOrFail('id', params.id);
+    const useExists = await User.findByOrFail('id', params.user_id);
 
     if (!useExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const telephone = await Telephone.query()
-      .where('user_id', params.id)
+      .where('user_id', params.user_id)
       .fetch();
 
     if (!telephone) {
@@ -46,7 +46,7 @@ class TelephoneController {
   async show({ params, response, auth }) {
     await auth.check();
 
-    const useExists = await User.findByOrFail('id', params.id);
+    const useExists = await User.findByOrFail('id', params.user_id);
 
     if (!useExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
@@ -70,7 +70,7 @@ class TelephoneController {
   async update({ params, request, response, auth }) {
     await auth.check();
 
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
@@ -98,7 +98,7 @@ class TelephoneController {
   async destroy({ params, response, auth }) {
     await auth.check();
 
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });

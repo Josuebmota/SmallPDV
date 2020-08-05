@@ -8,10 +8,10 @@ const Database = use('Database');
 class AddressController {
   async store({ request, response, params, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
-      return response.status(404).json({ message: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const { cep, street, number } = request.only(['cep', 'street', 'number']);
@@ -19,7 +19,7 @@ class AddressController {
     const addressExists = await Database.select('cep', 'street', 'number')
       .from('addresses')
       .where({
-        user_id: params.id,
+        user_id: params.user_id,
         cep,
         street,
         number,
@@ -33,7 +33,7 @@ class AddressController {
     }
 
     const newAddress = await Address.create({
-      user_id: params.id,
+      user_id: params.user_id,
       ...request.all(),
     });
 
@@ -42,13 +42,15 @@ class AddressController {
 
   async index({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    const address = await Address.query().where('user_id', params.id).fetch();
+    const address = await Address.query()
+      .where('user_id', params.user_id)
+      .fetch();
 
     if (!address) {
       return response
@@ -61,7 +63,7 @@ class AddressController {
 
   async show({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
@@ -84,7 +86,7 @@ class AddressController {
 
   async update({ params, request, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
@@ -102,24 +104,6 @@ class AddressController {
         .json({ message: 'Esse endereço não pertence a este usuário' });
     }
 
-    const { cep, street, number } = request.only(['cep', 'street', 'number']);
-
-    const addressExists = await Database.select('cep', 'street', 'number')
-      .from('addresses')
-      .where({
-        user_id: params.id,
-        cep,
-        street,
-        number,
-      })
-      .first();
-
-    if (addressExists) {
-      return response
-        .status(400)
-        .json({ message: 'Você já registrou esse endereço' });
-    }
-
     address.merge(request.all());
     await address.save();
     return response.status(204).json();
@@ -127,7 +111,7 @@ class AddressController {
 
   async destroy({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });

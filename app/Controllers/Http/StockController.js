@@ -20,7 +20,9 @@ class StockController {
       .fetch();
 
     if (stock.toJSON().length === 0) {
-      return response.status(404).json({ message: 'Ordem não foi encontrada' });
+      return response
+        .status(404)
+        .json({ message: 'Estoque não foi encontrada' });
     }
 
     return response.status(200).json(stock);
@@ -31,6 +33,34 @@ class StockController {
 
     const stock = await Stock.findByOrFail('id', params.id);
     const dataStock = request.only(['amount', 'minimum_stock']);
+
+    if (
+      dataStock.amount === undefined &&
+      dataStock.minimum_stock !== undefined
+    ) {
+      if (stock.amount < dataStock.minimum_stock) {
+        return response.status(400).json({
+          message:
+            'Quantidade existente não pode ser menor que o novo estoque minimo',
+          amountOld: stock.amount,
+        });
+      }
+    } else if (
+      dataStock.amount !== undefined &&
+      dataStock.minimum_stock === undefined
+    ) {
+      if (dataStock.amount < stock.minimum_stock) {
+        return response.status(400).json({
+          message:
+            'Quantidade nova não pode ser menor que estoque minino existente',
+          minimum_stockOld: stock.minimum_stock,
+        });
+      }
+    } else if (dataStock.amount <= dataStock.minimum_stock) {
+      return response.status(400).json({
+        message: 'Quantidade não pode ser  menor do que o estoque minino',
+      });
+    }
 
     let type = 'DECREMENT';
     let stockActionAmount = stock.amount - dataStock.amount;

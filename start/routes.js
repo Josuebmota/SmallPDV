@@ -14,62 +14,74 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
+Route.get('/', ({ response }) => {
+  return response
+    .status(404)
+    .json({ message: 'Bem-vindo a api de vendas PegasusTi' });
+});
 // RouteAdm first user
-Route.post('/adm', 'AdmController.store').validator('Employee');
+Route.post('/api/adm', 'AdmController.store').validator('Employee');
 
 // Auth
-Route.post('/session', 'SessionController.login').validator('Session');
-Route.post('/forgot', 'ForgotPasswordController.forgot').validator('Forgot');
-Route.post('/reset', 'ResetPasswordController.reset').validator('Reset');
+Route.post('/api/session', 'SessionController.login').validator('Session');
+Route.post('/api/forgot', 'ForgotPasswordController.forgot').validator(
+  'Forgot'
+);
+Route.post('/api/reset', 'ResetPasswordController.reset').validator('Reset');
 
 Route.group(() => {
   // Employee
   Route.post('employee', 'EmployeeController.store').validator('Employee');
-  Route.put('employee/:id', 'EmployeeController.update').validator(
+  Route.get('employee', 'EmployeeController.index');
+  Route.get('employee/:user_id', 'EmployeeController.show');
+  Route.put('employee/:user_id', 'EmployeeController.update').validator(
     'UserUpdate'
   );
-  Route.resource('employee', 'EmployeeController').only([
-    'index',
-    'show',
-    'destroy',
-  ]);
+  Route.delete('employee/:user_id', 'EmployeeController.destroy');
 
   // ProfileEmployee
   Route.get('profile', 'ProfileEmployeeController.index');
 
   // Client
   Route.post('client', 'ClientController.store').validator('Client');
-  Route.put('client/:id', 'ClientController.update').validator('UserUpdate');
-  Route.resource('client', 'ClientController').only([
-    'index',
-    'show',
-    'destroy',
-  ]);
+  Route.get('client', 'ClientController.index');
+  Route.get('client/:user_id', 'ClientController.show');
+  Route.put('client/:user_id', 'ClientController.update').validator(
+    'UserUpdate'
+  );
+  Route.delete('client/:user_id', 'ClientController.destroy');
 
   // Address
-  Route.post('address/:id', 'AddressController.store').validator('Address');
-  Route.put('address/:id/:address_id', 'AddressController.update').validator(
+  Route.post('address/:user_id', 'AddressController.store').validator(
     'Address'
   );
-  Route.get('address/:id', 'AddressController.index');
-  Route.get('address/:id/:address_id', 'AddressController.show');
-  Route.delete('address/:id/:address_id', 'AddressController.destroy');
+  Route.get('address/:user_id', 'AddressController.index');
+  Route.get('address/:user_id/:address_id', 'AddressController.show');
+  Route.put(
+    'address/:user_id/:address_id',
+    'AddressController.update'
+  ).validator('Address');
+  Route.delete('address/:user_id/:address_id', 'AddressController.destroy');
 
   // Telephones/Cellphone
-  Route.post('telephone/:id', 'TelephoneController.store').validator(
+  Route.post('telephone/:user_id', 'TelephoneController.store').validator(
     'Telephone'
   );
   Route.put(
-    'telephone/:id/:telephone_id',
+    'telephone/:user_id/:telephone_id',
     'TelephoneController.update'
   ).validator('Telephone');
-  Route.get('telephone/:id', 'TelephoneController.index');
-  Route.get('telephone/:id/:telephone_id', 'TelephoneController.show');
-  Route.delete('telephone/:id/:telephone_id', 'TelephoneController.destroy');
+  Route.get('telephone/:user_id', 'TelephoneController.index');
+  Route.get('telephone/:user_id/:telephone_id', 'TelephoneController.show');
+  Route.delete(
+    'telephone/:user_id/:telephone_id',
+    'TelephoneController.destroy'
+  );
 
   // Product
-  Route.resource('product', 'ProductController').apiOnly().except(['store']);
-  Route.post('product', 'ProductController.store').validator('Product');
+  Route.resource('product', 'ProductController')
+    .apiOnly()
+    .validator(new Map([[['product.store'], ['Product']]]));
 
   // Categories
   Route.resource('category', 'CategoryController')
@@ -78,9 +90,14 @@ Route.group(() => {
     .validator(new Map([[['category.store'], ['Category']]]));
 
   // ProductCategory
-  Route.resource('productcategory', 'ProductCategoryController')
-    .apiOnly()
-    .except(['index', 'show', 'update']);
+  Route.post(
+    'productcategory/:product_id',
+    'ProductCategoryController.store'
+  ).validator('ProductCategory');
+  Route.delete(
+    'productcategory/:product_id',
+    'ProductCategoryController.destroy'
+  );
 
   // Stock
   Route.resource('stock', 'StockController')
@@ -96,5 +113,5 @@ Route.group(() => {
   // OrderClient
   Route.get('orderclient/:client_id', 'OrderClientController.index');
   Route.get('orderclient/:client_id/:order_id', 'OrderClientController.show');
-});
+}).prefix('api/');
 // .middleware('auth');

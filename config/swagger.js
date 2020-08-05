@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -15,19 +13,28 @@ module.exports = {
   options: {
     swaggerDefinition: {
       info: {
-        title: 'Adonis 💘 Swagger',
-        version: '1.0.0',
+        title: 'SistemasdeVendas',
+        description: 'ApiRest🚀 para o sistemas de vendas da PegasusTi 🦄',
+        version: '1.2.0',
       },
-  
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
       basePath: '/',
-
-      // Example security definitions.
       securityDefinitions: {
         ApiKey: {
           description: 'ApiKey description',
-          name: 'Authorization'
+          name: 'Authorization',
         },
-
+        bearerAuth: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'Authorization',
+        },
         // OAuth2 configuration
         OAuth2: {
           authorizationUrl: 'https://example.com/oauth/authorize',
@@ -38,21 +45,18 @@ module.exports = {
           scopes: {
             read: 'Grants read access (this is just sample)',
             write: 'Grants write access (this is just sample)',
-            admin: 'Grants read and write access to administrative information (this is just sample)'
-          }
+            admin:
+              'Grants read and write access to administrative information (this is just sample)',
+          },
         },
-      }
+      },
     },
 
     // Path to the API docs
     // Sample usage
-    // apis: [
-    //    'docs/**/*.yml',    // load recursive all .yml file in docs directory
-    //    'docs/**/*.js',     // load recursive all .js file in docs directory
-    // ]
     apis: [
-      'app/**/*.js',
-      'start/routes.js'
-    ]
-  }
-}
+      'docs/**/*.yml', // load recursive all .yml file in docs directory
+      'docs/**/*.js', // load recursive all .js file in docs directory
+    ],
+  },
+};

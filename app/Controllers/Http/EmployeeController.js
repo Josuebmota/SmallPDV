@@ -12,7 +12,7 @@ class EmployeeController {
 
     if (admExists.type !== 'ADM') {
       return response.status(401).json({
-        message: 'Você não tem autorização para cadastrar empregados',
+        message: 'Você não tem autorização para efetuar essa ação',
       });
     }
 
@@ -40,7 +40,7 @@ class EmployeeController {
 
     if (admExists.type !== 'ADM') {
       return response.status(401).json({
-        message: 'Você não tem autorização para listar empregados',
+        message: 'Você não tem autorização para efetuar essa ação',
       });
     }
 
@@ -56,8 +56,8 @@ class EmployeeController {
 
     if (!employees) {
       return response
-        .status(200)
-        .json({ message: 'Não foi encontrado nenhum cliente' });
+        .status(404)
+        .json({ message: 'Não foi encontrado nenhum empregado' });
     }
 
     return employees;
@@ -69,11 +69,11 @@ class EmployeeController {
 
     if (admExists.type !== 'ADM') {
       return response.status(401).json({
-        message: 'Você não tem autorização para listar empregados',
+        message: 'Você não tem autorização para efetuar essa ação',
       });
     }
 
-    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+    const userEmployee = await Employee.findByOrFail('user_id', params.user_id);
 
     if (!userEmployee) {
       return response.status(400).json({ erro: 'Usuário não é um empregado' });
@@ -84,11 +84,13 @@ class EmployeeController {
       .with('employees')
       .with('addresses')
       .with('telephones')
-      .where('id', params.id)
+      .where('id', params.user_id)
       .fetch();
 
     if (!employee) {
-      return response.status(404).json({ notfound: 'User is not found' });
+      return response
+        .status(404)
+        .json({ message: 'Empregado não foi encontrado' });
     }
 
     return response.status(200).json({ employee });
@@ -96,23 +98,25 @@ class EmployeeController {
 
   async update({ params, request, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
-      return response.status(404).json({ erro: 'User is not found' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+    const userEmployee = await Employee.findByOrFail('user_id', params.user_id);
 
     if (!userEmployee) {
-      return response.status(400).json({ erro: 'Usuário não é um empregado' });
+      return response
+        .status(400)
+        .json({ message: 'Usuário não é um empregado' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
-    if (admExists.type === 'ADM' || admExists.user_id === params.id) {
+    if (admExists.type === 'ADM' || admExists.user_id === params.user_id) {
       // Config User
-      const user = await User.findOrFail(params.id);
+      const user = await User.findOrFail(params.user_id);
       const dataUser = request.only(['name', 'email', 'cpf', 'password']);
       await user.merge(dataUser);
       await user.save();
@@ -120,7 +124,7 @@ class EmployeeController {
       // Config Employee
       const dataEmpregado = request.only(['type']);
       if (Object.entries(dataEmpregado).length !== 0) {
-        const employee = await Employee.findByOrFail('user_id', params.id);
+        const employee = await Employee.findByOrFail('user_id', params.user_id);
         await employee.merge(dataEmpregado);
         await employee.save();
       }
@@ -129,35 +133,37 @@ class EmployeeController {
     }
 
     return response.status(401).json({
-      message: 'Você não tem autorização para atualizar empregados',
+      message: 'Você não tem autorização para efetuar essa ação',
     });
   }
 
   async destroy({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
-      return response.status(404).json({ notfound: 'Usuário não encontrado' });
+      return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    const userEmployee = await Employee.findByOrFail('user_id', params.id);
+    const userEmployee = await Employee.findByOrFail('user_id', params.user_id);
 
     if (!userEmployee) {
-      return response.status(400).json({ erro: 'Usuário não é um empregado' });
+      return response
+        .status(400)
+        .json({ message: 'Usuário não é um empregado' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
-    if (admExists.type === 'ADM' || admExists.user_id === params.id) {
-      const employee = await User.findOrFail(params.id);
+    if (admExists.type === 'ADM' || admExists.user_id === params.user_id) {
+      const employee = await User.findOrFail(params.user_id);
 
       await employee.delete();
 
       return response.status(204).json();
     }
     return response.status(401).json({
-      message: 'Você não tem autorização para deletar empregados',
+      message: 'Você não tem autorização para efetuar essa ação',
     });
   }
 }
