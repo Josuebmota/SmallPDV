@@ -43,7 +43,7 @@ class ClientController {
 
     if (!client) {
       return response
-        .status(200)
+        .status(404)
         .json({ message: 'Não foi encontrado nenhum cliente' });
     }
 
@@ -52,10 +52,10 @@ class ClientController {
 
   async show({ auth, params, response }) {
     await auth.check();
-    const userClient = await Client.findByOrFail('user_id', params.id);
+    const userClient = await Client.findByOrFail('user_id', params.user_id);
 
     if (!userClient) {
-      return response.status(404).json({ message: 'Usuário não é um client' });
+      return response.status(400).json({ message: 'Usuário não é um cliente' });
     }
 
     const client = await User.query()
@@ -63,7 +63,7 @@ class ClientController {
       .with('clients')
       .with('addresses')
       .with('telephones')
-      .where('id', params.id)
+      .where('id', params.user_id)
       .fetch();
 
     if (!client) {
@@ -76,29 +76,29 @@ class ClientController {
   async update({ auth, params, request, response }) {
     await auth.check();
 
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    const userClient = await Client.findByOrFail('user_id', params.id);
+    const userClient = await Client.findByOrFail('user_id', params.user_id);
 
     if (!userClient) {
-      return response.status(404).json({ message: 'Usuário não é um client' });
+      return response.status(400).json({ message: 'Usuário não é um cliente' });
     }
 
     // Config Clients
-    const user = await User.findOrFail(params.id);
+    const user = await User.findOrFail(params.user_id);
     user.merge(request.all());
     await user.save();
 
     // Config Clients
     const dataClient = request.only(['money']);
     if (Object.entries(dataClient).length !== 0) {
-      const employee = await Client.findByOrFail('user_id', params.id);
-      employee.merge(dataClient);
-      await employee.save();
+      const client = await Client.findByOrFail('user_id', params.user_id);
+      client.merge(dataClient);
+      await client.save();
     }
 
     return response.status(204).json();
@@ -106,16 +106,16 @@ class ClientController {
 
   async destroy({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.id);
+    const userExists = await User.findByOrFail('id', params.user_id);
 
     if (!userExists) {
       return response.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    const userClient = await Client.findByOrFail('user_id', params.id);
+    const userClient = await Client.findByOrFail('user_id', params.user_id);
 
     if (!userClient) {
-      return response.status(404).json({ message: 'Usuário não é um cliente' });
+      return response.status(400).json({ message: 'Usuário não é um cliente' });
     }
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
@@ -126,7 +126,7 @@ class ClientController {
       });
     }
 
-    const client = await User.findOrFail(params.id);
+    const client = await User.findOrFail(params.user_id);
 
     await client.delete();
 

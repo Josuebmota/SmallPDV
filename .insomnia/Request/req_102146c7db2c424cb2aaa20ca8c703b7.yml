@@ -1,5 +1,7 @@
 _id: req_102146c7db2c424cb2aaa20ca8c703b7
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body: {}
 created: 1595111627266
 description: ""
@@ -7,7 +9,7 @@ headers: []
 isPrivate: false
 metaSortKey: -1593734507255
 method: DELETE
-modified: 1596499734362
+modified: 1596640460072
 name: Delete
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425

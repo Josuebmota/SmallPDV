@@ -14,7 +14,9 @@ class CategoryController {
 
     const isAdm = await Employee.findBy('user_id', auth.user.id);
     if (isAdm.type !== 'ADM')
-      return response.status(401).json({ message: 'Não autorizado' });
+      return response
+        .status(401)
+        .json('Você não tem autorização para efetuar essa ação');
 
     const data = request.only(['level', 'name', 'child_count']);
 

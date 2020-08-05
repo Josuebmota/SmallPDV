@@ -9,6 +9,8 @@ class Product {
       to_sell: 'required',
       show_online: 'required',
       fraction_sell: 'required',
+      amount: 'required',
+      minimum_stock: 'required',
     };
   }
 
@@ -26,6 +28,8 @@ class Product {
       'to_sell.required': 'Campo venda é obrigatório.',
       'show_online.required': 'Mostrar online é obrigatório.',
       'fraction_sell.required': 'Venda de fração é obrigatório.',
+      'amount.required': 'Quantidade do produto é obrigatório.',
+      'minimum_stock.required': 'Estoque minimo do produto é obrigatório.',
     };
   }
 

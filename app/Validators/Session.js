@@ -8,9 +8,9 @@ class Session {
 
   get messages() {
     return {
-      'email.required': 'E-mail is required',
-      'email.email': 'Invalid e-mail',
-      'password.required': 'Password is required',
+      'email.required': 'E-mail é obrigatório',
+      'email.email': 'E-mail invalido',
+      'password.required': 'Password é obrigatório',
     };
   }
 

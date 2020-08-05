@@ -1,5 +1,7 @@
 _id: req_d3050287bf3340f7a55f963c7df071f3
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body:
   mimeType: application/json
   text: >-
@@ -26,7 +28,7 @@ headers:
 isPrivate: false
 metaSortKey: -1595094298460
 method: POST
-modified: 1596499725559
+modified: 1596640446055
 name: Create
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425

@@ -7,8 +7,8 @@ class Forgot {
 
   get messages() {
     return {
-      'email.required': 'E-mail is required',
-      'email.email': 'Invalid e-mail',
+      'email.required': 'E-mail é obrigatório',
+      'email.email': 'E-mail é obrigatório',
     };
   }
 

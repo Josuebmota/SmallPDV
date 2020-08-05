@@ -4,7 +4,7 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"email":"josuebatistam1@gmail.com"
+    	"email":"joanderson@gmail.com"
     }
 created: 1590973884981
 description: ""
@@ -15,7 +15,7 @@ headers:
 isPrivate: false
 metaSortKey: -1590973884981
 method: POST
-modified: 1591462492443
+modified: 1596636721179
 name: ForgotPassword
 parameters: []
 parentId: fld_c76d95e1e3e5417fbb9350dcc9fe390b
