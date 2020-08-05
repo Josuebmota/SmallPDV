@@ -3,6 +3,13 @@ const ProductCategory = use('App/Models/ProductCategory');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Employee = use('App/Models/Employee');
 
+async function deleteCategories(product_id, category_id) {
+  await ProductCategory.query()
+    .where('product_id', product_id)
+    .where('category_id', category_id)
+    .delete();
+}
+
 class ProductCategoryController {
   async store({ request, params, response, auth }) {
     await auth.check();
@@ -14,7 +21,7 @@ class ProductCategoryController {
       });
     }
     const { categories } = await request.get().categories;
-    const product_id = params.id;
+    const { product_id } = params;
 
     const productCategories = categories
       .split(',')
@@ -56,27 +63,21 @@ class ProductCategoryController {
       });
     }
 
-    const { categories } = await request.get().categories;
-    const product_id = params.id;
+    const categories = await request.get().categories;
+    const { product_id } = params;
 
-    const productCategories = categories
+    const categoriesAll = categories
       .split(',')
       .map((category) => category.trim())
       .map((category_id) => {
-        return {
-          product_id,
-          category_id,
-        };
+        return category_id;
       });
 
-    await ProductCategory.query()
-      .where('product_id', product_id)
-      .whereIn(productCategories)
-      .delete();
+    for (let index = 0; index < categoriesAll.length; index += 1) {
+      deleteCategories(product_id, categoriesAll[index]);
+    }
 
-    return response.status(200).send({
-      message: 'Categoria atribuida a este produto foi excluída com sucesso.',
-    });
+    return response.status(204).json();
   }
 }
 

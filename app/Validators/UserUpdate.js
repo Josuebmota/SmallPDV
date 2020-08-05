@@ -2,7 +2,7 @@ const { rule } = use('Validator');
 
 class UserUpdate {
   get rules() {
-    const userId = this.ctx.params.id;
+    const userId = this.ctx.params.user_id;
 
     return {
       email: `unique:users,email,id,${userId}`,

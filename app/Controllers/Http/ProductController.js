@@ -22,7 +22,6 @@ class ProductController {
         'bar_code',
         'internal_code',
         'show_online',
-        'unity',
         'image'
       )
       .with('categories', (category) => {
@@ -31,16 +30,25 @@ class ProductController {
       .with('stocks')
       .paginate(page);
 
-    response.status(200).send(products);
+    response.status(200).json(products);
   }
 
   async store({ request, response }) {
-    const dataProduct = request.except([
+    const dataProduct = await request.except([
       'amount',
       'minimum_stock',
       'categories',
     ]);
+
     const dataStock = await request.only(['amount', 'minimum_stock']);
+
+    if (dataStock.amount <= dataStock.minimum_stock) {
+      return response.status(400).json({
+        message:
+          'Quantidade não pode ser inicialmente menor do que o estoque minino',
+      });
+    }
+
     const { categories } = await request.only('categories');
 
     const trx = await Database.beginTransaction();
@@ -71,7 +79,7 @@ class ProductController {
 
     await trx.commit();
 
-    response.status(201).send({ product, productCategories });
+    return response.status(201).json({ product, productCategories });
   }
 
   async show({ params, response }) {
@@ -92,7 +100,7 @@ class ProductController {
     const product = await Product.findBy('id', params.id);
 
     if (!product)
-      return response.status(404).send({ message: 'Produto não encontrado' });
+      return response.status(404).json({ message: 'Produto não encontrado' });
 
     const data = request.all();
     product.merge(data);
@@ -105,12 +113,14 @@ class ProductController {
     const product = await Product.findByOrFail('id', params.id);
 
     if (!product)
-      return response.status(404).send({ message: 'Produto não encontrado' });
+      return response.status(404).json({ message: 'Produto não encontrado' });
 
     const admExists = await Employee.findByOrFail('user_id', auth.user.id);
 
     if (admExists.type !== 'ADM') {
-      return response.status(401).json('Você não tem autorização para deletar');
+      return response
+        .status(401)
+        .json('Você não tem autorização para efetuar essa ação');
     }
 
     await product.delete(product);
