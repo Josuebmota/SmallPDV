@@ -58,8 +58,8 @@ Essa ferramenta ira ajudar no tratamento de requisições do projeto. Siga as et
   ![Insomnia2](https://user-images.githubusercontent.com/34459397/89245230-c141ea80-d5de-11ea-8bd1-cca9d11acea7.png)
 
 ### Swagger 
-Afim de trazer entidimento de cada rota desta api. Basta acessar a rota:
->Homologação: http://pegasusti.herokuapp.com/swagger.json
+Afim de trazer entidimento de cada rota desta api, basta acessar a rota:
+>Homologação: http://pegasusti.herokuapp.com/swagger.json<br>
 >Local: http://localhost:3333/swagger.json
 
 Nessa rota, estará documentado o que cada função de um determinado controller ira efetuar.
