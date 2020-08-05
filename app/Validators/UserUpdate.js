@@ -2,7 +2,7 @@ const { rule } = use('Validator');
 
 class UserUpdate {
   get rules() {
-    const userId = this.ctx.params.id;
+    const userId = this.ctx.params.user_id;
 
     return {
       email: `unique:users,email,id,${userId}`,
@@ -25,8 +25,12 @@ class UserUpdate {
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

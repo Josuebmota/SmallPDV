@@ -1,0 +1,21 @@
+_id: req_a74beb22f5c14253b848f03fd0fa09a1
+authentication: {}
+body: {}
+created: 1596155407964
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596155407964
+method: GET
+modified: 1596393707583
+name: Show
+parameters: []
+parentId: fld_86ba2ee85d9e4623a816b234debcc286
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/order/1"

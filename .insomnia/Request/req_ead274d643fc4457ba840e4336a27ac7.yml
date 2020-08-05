@@ -1,0 +1,31 @@
+_id: req_ead274d643fc4457ba840e4336a27ac7
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"amount": 5
+    }
+created: 1596145136736
+description: ""
+headers:
+  - id: pair_fa07e9cae3394f05ba28e473902f8352
+    name: Content-Type
+    value: application/json
+isPrivate: false
+metaSortKey: -1596145113828
+method: PUT
+modified: 1596640632577
+name: Update
+parameters: []
+parentId: fld_a3ff245b49094423808f888ed018e078
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock/1"

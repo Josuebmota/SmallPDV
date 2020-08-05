@@ -1,0 +1,23 @@
+_id: req_9813dd3432994f31af0a25136f6869ed
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
+body: {}
+created: 1596145113878
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596145131818
+method: GET
+modified: 1596640464906
+name: Index
+parameters: []
+parentId: fld_a3ff245b49094423808f888ed018e078
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/stock"

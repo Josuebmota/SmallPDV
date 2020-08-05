@@ -1,19 +1,23 @@
 class Category {
   get rules() {
     return {
-      label: 'required|unique:categories',
+      name: 'required|unique:categories',
     };
   }
 
   get messages() {
     return {
-      'label.required': 'Nome da categoria é obrigatoria',
-      'label.unique': 'Node da categoria é único',
+      'name.required': 'Nome da categoria é obrigatoria',
+      'name.unique': 'Nome da categoria é único',
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

@@ -28,7 +28,9 @@
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
     "adonis-jsonable": "^0.2.1",
+    "adonis-swagger": "^1.2.9",
     "date-fns": "^2.14.0",
+    "mysql": "^2.18.1",
     "pg": "^8.2.1",
     "url-parse": "^1.4.7"
   },

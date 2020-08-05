@@ -7,6 +7,16 @@ class Product extends Model {
       'App/Models/ProductCategory'
     );
   }
+
+  orders() {
+    return this.belongsToMany('App/Models/Order').pivotModel(
+      'App/Models/OrderProduct'
+    );
+  }
+
+  stocks() {
+    return this.hasOne('App/Models/Stock');
+  }
 }
 
 module.exports = Product;

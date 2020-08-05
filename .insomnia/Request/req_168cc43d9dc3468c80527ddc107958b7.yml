@@ -1,13 +1,15 @@
 _id: req_168cc43d9dc3468c80527ddc107958b7
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body: {}
 created: 1595095112072
 description: ""
 headers: []
 isPrivate: false
-metaSortKey: -1592374716050
+metaSortKey: -1594414402857.5
 method: GET
-modified: 1595095115783
+modified: 1596640453830
 name: Show
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
@@ -18,4 +20,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products/1"
+url: "{{ url }}/product/206"

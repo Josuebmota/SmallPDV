@@ -1,5 +1,7 @@
 _id: req_d3050287bf3340f7a55f963c7df071f3
-authentication: {}
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU5NjY0MDQzM30.YIcv4NESvw-eAdLbWacXSLmoq4T6ZawVQme1k4FclE4
+  type: bearer
 body:
   mimeType: application/json
   text: >-
@@ -10,12 +12,12 @@ body:
     		"description": "at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat",
     		"cost_price": 45.7,
     		"sell_price": 46.62,
-    	"to_sell": 0,
+    		"to_sell": 0,
     		"show_online": 1,
-    		"unity": null,
     		"fraction_sell": 1,
-    		"stock_control": 0,
-    		"categories": "1,8,99"
+    		"categories": "1,8",
+    		"amount":21,
+    		"minimum_stock": 1
     }
 created: 1595094298460
 description: ""
@@ -26,7 +28,7 @@ headers:
 isPrivate: false
 metaSortKey: -1595094298460
 method: POST
-modified: 1595095640134
+modified: 1596640446055
 name: Create
 parameters: []
 parentId: fld_7bffae1f5ee34772a9b452aae4a31425
@@ -37,4 +39,4 @@ settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true
 type: Request
-url: "{{ url }}/products"
+url: "{{ url }}/product"

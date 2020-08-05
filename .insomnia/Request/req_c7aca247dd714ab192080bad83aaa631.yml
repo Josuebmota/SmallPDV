@@ -1,0 +1,21 @@
+_id: req_c7aca247dd714ab192080bad83aaa631
+authentication: {}
+body: {}
+created: 1596155555453
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1596155555453
+method: GET
+modified: 1596394214106
+name: Show
+parameters: []
+parentId: fld_1fffea166bd54dfd881d742da0a9ff42
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/orderclient/1/3"

@@ -24,6 +24,8 @@ class AdmController {
       'neighborhood',
       'city',
       'state',
+      'complement',
+      'description',
     ]);
 
     const dataTelephone = request.only(['cellphone', 'telephone']);

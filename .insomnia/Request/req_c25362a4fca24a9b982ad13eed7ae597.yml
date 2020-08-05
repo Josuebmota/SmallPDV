@@ -21,21 +21,28 @@ body:
     	"password_confirmation":"coxinha"
     }
 created: 1591462667940
-description: ""
+description: >-
+  Rota destinada para a criação do primeiro user
+
+  É importante ressaltar, que em um ambiente de produção essa rota será retirada,
+
+  e o primeiro user vai ser inserido de forma arcaica, por assim dizer
+
+  INSERT()...
 headers:
   - id: pair_7f92f634f04e4e95b3910ca6258d4500
     name: Content-Type
     value: application/json
 isPrivate: false
-metaSortKey: -1590878935928
+metaSortKey: -1000000000
 method: POST
-modified: 1595115120324
+modified: 1596501992739
 name: Create
 parameters: []
-parentId: fld_af92307148df4932a8d94c2ce94292f6
+parentId: wrk_7c2d9bfd4db3450b8fcb453e37b30e87
 settingDisableRenderRequestBody: false
 settingEncodeUrl: true
-settingFollowRedirects: global
+settingFollowRedirects: on
 settingRebuildPath: true
 settingSendCookies: true
 settingStoreCookies: true

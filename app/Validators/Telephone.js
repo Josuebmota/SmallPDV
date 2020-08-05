@@ -16,15 +16,19 @@ class Telephone {
 
   get messages() {
     return {
-      'cellphone.unique': 'Existing cellphone',
-      'cellphone.regex': 'Invalid cellphone, (xx)9xxx-xxxx',
-      'telephone.unique': 'Existing telephones',
-      'telephone.regex': 'Invalid telephone, (xx)xxxx-xxxx',
+      'cellphone.unique': 'Celular já existe',
+      'cellphone.regex': 'Celular invalido, (xx)9xxxx-xxxx',
+      'telephone.unique': 'Telefone já existe',
+      'telephone.regex': 'Telefone invalido, (xx)xxxx-xxxx',
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

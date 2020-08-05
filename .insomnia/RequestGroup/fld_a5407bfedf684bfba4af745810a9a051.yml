@@ -1,0 +1,10 @@
+_id: fld_a5407bfedf684bfba4af745810a9a051
+created: 1596155283702
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1595971180469
+modified: 1596155286624
+name: ProductCategory
+parentId: fld_986f5a2fbf904f389bc52848f2c36daf
+type: RequestGroup

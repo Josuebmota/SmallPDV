@@ -3,8 +3,8 @@ created: 1595092208451
 description: ""
 environment: {}
 environmentPropertyOrder: null
-metaSortKey: -1595092179064
-modified: 1595460743216
-name: CadastroProdutos
+metaSortKey: -1596155218444
+modified: 1596155224719
+name: ProductsRelations
 parentId: wrk_9b27837bdf5c4ae29ec976ce9713aeac
 type: RequestGroup

@@ -1,0 +1,21 @@
+_id: req_8f613b71548b43e4beddbad26a054d92
+authentication: {}
+body: {}
+created: 1595971186702
+description: ""
+headers: []
+isPrivate: false
+metaSortKey: -1595971217860
+method: GET
+modified: 1596499954898
+name: Index
+parameters: []
+parentId: fld_61d1f884311d45a9bf6632ccbd8388ae
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingFollowRedirects: global
+settingRebuildPath: true
+settingSendCookies: true
+settingStoreCookies: true
+type: Request
+url: "{{ url }}/category"

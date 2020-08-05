@@ -14,18 +14,22 @@ class Address {
 
   get messages() {
     return {
-      'cep.required': 'Cep is required',
-      'cep.regex': 'Invalid cep, xxxx-xxx',
-      'number.required': 'Cep is required',
-      'neighborhood.required': 'Cep is required',
-      'city.required': 'Cep is required',
-      'state.required': 'Cep is required',
-      'state.max': 'State must have a maximum of 2',
+      'cep.required': 'Cep é obrigatório',
+      'cep.regex': 'Cep invalido, xxxx-xxx',
+      'number.required': 'Número obrigatório',
+      'neighborhood.required': 'Bairro é obrigatório',
+      'city.required': 'Cidade é obrigatório',
+      'state.required': 'Estado é obrigatório',
+      'state.max': 'Estado deve ter no maximo dois caracteres',
     };
   }
 
+  get validateAll() {
+    return true;
+  }
+
   async fails(errorMessages) {
-    return this.ctx.response.json({ error: errorMessages[0].message });
+    return this.ctx.response.json({ error: errorMessages });
   }
 }
 

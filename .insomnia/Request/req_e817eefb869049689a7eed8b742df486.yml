@@ -8,7 +8,8 @@ body:
     {
     	"name": "Robson",
     	"email": "robson@gmail.com",
-    	"cpf": "258.722.255-55",
+    	"cpf": "258.720.255-55",
+    	"type": "EMPLOYEE",
     	"password": "coxinha",
     	"password_confirmation":"coxinha"
     }
@@ -19,9 +20,9 @@ headers:
     name: Content-Type
     value: application/json
 isPrivate: false
-metaSortKey: -1590878935978
+metaSortKey: -1591462169062
 method: POST
-modified: 1595114871788
+modified: 1596501285205
 name: Create
 parameters: []
 parentId: fld_a1dcf0319249490693907a295c326065
