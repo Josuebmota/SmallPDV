@@ -16,9 +16,9 @@ const Route = use('Route');
 
 Route.get('/', ({ response }) => {
   return response
-    .status(404)
+    .status(200)
     .json({ message: 'Bem-vindo a um mini pdv, acesse a url abaixo',
-    url:'http://smallpdv.herokuapp.com' });
+    url:'http://smallpdv.herokuapp.com/swagger.json' });
 });
 // RouteAdm first user
 Route.post('/api/adm', 'AdmController.store').validator('Employee');
