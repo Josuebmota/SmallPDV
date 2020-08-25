@@ -113,5 +113,4 @@ Route.group(() => {
   // OrderClient
   Route.get('orderclient/:client_id', 'OrderClientController.index');
   Route.get('orderclient/:client_id/:order_id', 'OrderClientController.show');
-}).prefix('api/');
-// .middleware('auth');
+}).prefix('api/').middleware('auth');
