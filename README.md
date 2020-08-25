@@ -1,5 +1,5 @@
 # Sistemas de vendas
->Link Homologação: http://pegasusti.herokuapp.com
+>Link Homologação: http://smallpdv.herokuapp.com
 
 ### Tecnologias Usadas
 🍀 NodeJs - Ambiente de execução javascript server-side. <br>
@@ -11,36 +11,31 @@
 ### Ferramentas Utilizadas
 - [Vs Code](https://code.visualstudio.com/)
 - [Insomnia Designer](https://insomnia.rest/download/)
-- Verificação da base de dados para teste por enquanto:
-  - [MySql Workbench](https://dev.mysql.com/downloads/workbench/)
-  - [PgAdmin](https://www.postgresql.org/)
-  - [Sqlite](https://sqlitebrowser.org/)
-  - [Docker](https://www.docker.com/), caso queira rodar em um container
 
 ### Modelo de entidade e relacionamento
 ![MER](https://user-images.githubusercontent.com/34459397/89466459-4695de00-d74a-11ea-9f33-96e21f3f659f.png)
 
 ### Execução
-Antes de executar é necessario mudar as variáveis de ambiente, localizadas no arquivo [.env](https://github.com/Josuebmota/ApiCadastroUser/blob/master/.env), você pode mudar as configurações de acordo com as suas preferências. Porém é importante ressaltar que o banco utilizado em ambiente de produção é o Postgres, logo pode ocorrer alguma variação diante de alguns comandos bem específicos.
+Antes de executar é necessario mudar as variáveis de ambiente, localizadas no arquivo [.env](https://github.com/Josuebmota/ApiCadastroUser/blob/master/.env), você pode mudar as configurações de acordo com as suas preferências.
 
 ```
 # Clone o repositório
-git clone https://github.com/Josuebmota/SistemadeVendas
+git clone https://github.com/Josuebmota/SmallPDV.git
 
 # Vá para o diretório do arquivo
-cd SistemadeVendas
+cd SmallPDV
 
 # Faça o download das dependências
 yarn or npm i
 
 # Caso não tenha criado um banco em seu ambiente de teste
-CREATE DATABASE sistemasvendas
+CREATE DATABASE SmallPDV
 
 # Rode as migrations
 adonis migration:run
 
 # Efetue a inserção de dados
-localizada SistemadeVendas/test/database/testDB.sql
+localizada SmallPDV/test/database/testDB.sql
 
 # Start o projeto
 adonis serve --dev
@@ -58,30 +53,17 @@ Essa ferramenta ira ajudar no tratamento de requisições do projeto. Siga as et
   ![Insomnia2](https://user-images.githubusercontent.com/34459397/89245230-c141ea80-d5de-11ea-8bd1-cca9d11acea7.png)
 
 ### Swagger 
-Afim de trazer entidimento de cada rota desta api, basta acessar a rota:
->Homologação: http://pegasusti.herokuapp.com/swagger.json<br>
+Afim de trazer entedimento de cada rota desta api, basta acessar a rota:
+>Homologação: http://smallpdv.herokuapp.com/swagger.json<br>
 >Local: http://localhost:3333/swagger.json
 
 Nessa rota, estará documentado o que cada função de um determinado controller ira efetuar.
 
-### Regras na organização de atividades
-É importante seguir essas diretrizes para deixa as ativiades bem explícitas.
-- Criação de Branchs = (atividade/nome-da-atividade), exemplo:
-```
-feature/order-payment
-bug/erro-products
-```
-- Commits = (Nome da branch: atividade feita), exemplo:
-```
-feature/order-payment: Create Model Controller
-```
-
-- Não se esqueça de criar as rotas no insomnia, implementar a documentação no swagger e atualizar o modelo de entidade e relacionamento, caso necessário.
-
-- Utilize o Prettier e Eslint.
-
-- Pull Request, elabore uma descrição das funcionalidades implementadas e peça para alguém avaliar sua implementação, caso for necessario.
-
 ### Observações
 - As rotas de ForgotPassword e ResetPassword não foram implementadas ainda
 - E a documentação do Swagger ainda está incompleta
+
+#### 👨‍💻 [](<[https://github.com/Josuebmota/SmallPDV](https://github.com/Josuebmota/SmallPDV)#autor>)Autores
+
+- **Josué Batista Mota** - [GitHub](https://github.com/Josuebmota) - Email: [josuebatistam1@gmail.com](mailto:josuebatistam1@gmail.com)
+- **Yvens Martins** - [GitHub](https://github.com/yvensm) - Email: [claudioyvens10@gmail.com](mailto:claudioyvens10@gmail.com)

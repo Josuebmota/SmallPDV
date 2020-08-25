@@ -17,7 +17,8 @@ const Route = use('Route');
 Route.get('/', ({ response }) => {
   return response
     .status(404)
-    .json({ message: 'Bem-vindo a api de vendas PegasusTi' });
+    .json({ message: 'Bem-vindo a um mini pdv, acesse a url abaixo',
+    url:'http://smallpdv.herokuapp.com' });
 });
 // RouteAdm first user
 Route.post('/api/adm', 'AdmController.store').validator('Employee');
