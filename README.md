@@ -12,7 +12,7 @@
   </a> 
   <a href="https://github.com/Josuebmota/SmallPDV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-FA8072">
   </a>
-  <a href="https://github.com/Josuebmota/SmallPDV/stargazers"><img alt="Stargazers" src="https://img.shields.io/github/stars/Josuebmota/TaskManagement?color=FA8072&logo=github">
+  <a href="https://github.com/Josuebmota/SmallPDV/stargazers"><img alt="Stargazers" src="https://img.shields.io/github/stars/Josuebmota/SmallPDV?color=FA8072&logo=github">
   </a>
 </p>
 
