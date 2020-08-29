@@ -6,7 +6,7 @@
    <a href="https://www.linkedin.com/in/josu%C3%A9-batista-694bba135/">
       <img alt="Josué Batista" src="https://img.shields.io/badge/-JosuéBatista-FA8072?style=flat&logo=Linkedin&logoColor=white" />
    </a>
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/RafaelGoulartB/proffy?color=FA8072">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Josuebmota/SmallPDV?color=FA8072">
   <a href="https://github.com/Josuebmota/SmallPDV/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Josuebmota/SmallPDV?color=FA8072">
   </a> 
