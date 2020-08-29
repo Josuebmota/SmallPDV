@@ -35,7 +35,7 @@ Você pode acessar a api, atravês do link abaixo:
 
 ## 📁 Modelo de entidade e relacionamento
 Tomando como base do que seria de fato um ponto de venda, foi elaborado as tabelas e suas relações.
-<p>
+<p align = "center">
 <img src ="https://user-images.githubusercontent.com/34459397/89466459-4695de00-d74a-11ea-9f33-96e21f3f659f.png"/>
 </p>
 
