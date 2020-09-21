@@ -6,12 +6,19 @@ const Address = use('App/Models/Address');
 const Database = use('Database');
 
 class AddressController {
+  constructor() {
+    this.notFoundMessages = {
+      user: { message: 'Usuário não encontrado' },
+      address: { message: 'Endereço não encontrado'}
+    }
+  }
+
   async store({ request, response, params, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.user_id);
+    const user = await User.find(params.user_id);
 
-    if (!userExists) {
-      return response.status(404).json({ message: 'Usuário não encontrado' });
+    if (! user) {
+      return response.status(404).json(this.notFoundMessages[user]);
     }
 
     const { cep, street, number } = request.only(['cep', 'street', 'number']);
@@ -42,43 +49,35 @@ class AddressController {
 
   async index({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.user_id);
+    const user = await User.find(params.user_id);
 
-    if (!userExists) {
-      return response.status(404).json({ message: 'Usuário não encontrado' });
+    if (! user) {
+      return response.status(404).json(this.notFoundMessages[user]);
     }
 
-    const address = await Address.query()
-      .where('user_id', params.user_id)
-      .fetch();
+    const addresses = await user.addresses().fetch();
 
-    if (!address) {
+    if (! addresses) {
       return response
         .status(200)
         .json({ message: 'Não existe endereços para esse usuário' });
     }
 
-    return address;
+    return addresses;
   }
 
   async show({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.user_id);
+    const user = await User.find(params.user_id);
+    const address = user && await user.addresses()
+      .where('id', params.address_id)
+      .first();
 
-    if (!userExists) {
-      return response.status(404).json({ message: 'Usuário não encontrado' });
-    }
-
-    const address = await Address.findByOrFail('id', params.address_id);
-
-    if (!address) {
-      return response.status(404).json({ message: 'Endereço não encontrado' });
-    }
-
-    if (address.user_id !== userExists.id) {
-      return response
-        .status(400)
-        .json({ messager: 'Esse endereço não pertence a este usuário' });
+    const models = { user, address };
+    for (let modelName in models) {
+      if (! models[modelName]) {
+        return response.status(404).json(this.notFoundMessages[modelName]);
+      }
     }
 
     return address;
@@ -86,22 +85,16 @@ class AddressController {
 
   async update({ params, request, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.user_id);
+    const user = await User.find(params.user_id);
+    const address = user && await user.addresses()
+      .where('id', params.address_id)
+      .first();
 
-    if (!userExists) {
-      return response.status(404).json({ message: 'Usuário não encontrado' });
-    }
-
-    const address = await Address.findByOrFail('id', params.address_id);
-
-    if (!address) {
-      return response.status(404).json({ message: 'Endereço não encontrado' });
-    }
-
-    if (address.user_id !== userExists.id) {
-      return response
-        .status(400)
-        .json({ message: 'Esse endereço não pertence a este usuário' });
+    const models = { user, address };
+    for (let modelName in models) {
+      if (! models[modelName]) {
+        return response.status(404).json(this.notFoundMessages[modelName]);
+      }
     }
 
     address.merge(request.all());
@@ -111,25 +104,19 @@ class AddressController {
 
   async destroy({ params, response, auth }) {
     await auth.check();
-    const userExists = await User.findByOrFail('id', params.user_id);
+    const user = await User.find(params.user_id);
+    const address = user && await user.addresses()
+      .where('id', params.address_id)
+      .first();
 
-    if (!userExists) {
-      return response.status(404).json({ message: 'Usuário não encontrado' });
+    const models = { user, address };
+    for (let modelName in models) {
+      if (! models[modelName]) {
+        return response.status(404).json(this.notFoundMessages[modelName]);
+      }
     }
 
-    const addresss = await Address.findByOrFail('id', params.address_id);
-
-    if (!addresss) {
-      return response.status(404).json({ message: 'Endereço não encontrado' });
-    }
-
-    if (addresss.user_id !== userExists.id) {
-      return response
-        .status(400)
-        .json({ message: 'Esse endereço não pertence a este usuário' });
-    }
-
-    await addresss.delete();
+    await address.delete();
 
     return response.status(204).json();
   }
